@@ -1,0 +1,488 @@
+@use './variables.scss';
+
+body {
+    background-color: variables.$color-bg;
+    padding: 0;
+    margin: 0;
+}
+
+.wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-family: var(--font-sans);
+    min-height: 100vh;
+}
+
+.navbar_header {
+    width: 100%;
+    background-color: variables.$color-secondary;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+
+    .navbar_left {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        align-items: center;
+    }
+
+    .navbar_right {
+        width: 50%;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        height: 100%;
+    }
+
+    .navbar_profile {
+        width: auto;
+        height: 40px;
+        top: 100%;
+        background-color: variables.$button-color;
+
+        transition: 0.15s ease;
+
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+
+        margin-right: 10px;
+
+        border-radius: 4px;
+        border: 2px solid variables.$border-color;
+        font-family: var(--font-sans);
+        font-size: variables.$font-medium;
+
+        p {
+            margin-left: 5px;
+        }
+    }
+
+    .navbar_profile:hover {
+        background-color: variables.$button-hover;
+    }
+}
+
+.profile_logo {
+    width: 25px;
+    height: 25px;
+    fill: variables.$white-color;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.container {
+    padding-top: variables.$navbar-height;
+    background-color: variables.$color-bg;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+}
+
+.h2-style {
+    font-size: variables.$font-large;
+}
+
+.loginbox {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    background-color: variables.$color-secondary;
+    box-shadow: 0 6px 10px variables.$border-shadow;
+
+    border-radius: 10px;
+    border: 2px solid variables.$border-color;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto;
+    grid-template-areas: 
+        "top"
+        "bottom";
+}
+
+.checkbox-input {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+}
+
+.logintop {
+    grid-area: top;
+    height: auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.error {
+    font-size: variables.$font-medium;
+    color: variables.$error-color;
+}
+
+.success {
+    font-size: variables.$font-medium;
+    color: variables.$success-color;
+}
+
+.loginbottom {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    grid-area: bottom;
+    align-items: center;
+    justify-content: center;
+
+    display: flex;
+    flex-direction: column;
+
+    button {
+        width: 75%;
+        height: 30px;
+        border-radius: 6px;
+        border: 2px solid variables.$border-color;
+        background-color: variables.$button-color;
+        font-size: 14px;
+        font-family: var(--font-sans);
+        transition: 0.15s ease;
+    }
+
+    button:hover {
+        background-color: variables.$button-hover;
+    }
+}
+
+.center-aligned {
+    align-self: center;
+    justify-self: center;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 75%;
+    align-self: center;
+    justify-self: center;
+
+    label {
+        font-size: 16px;
+        margin: 7px;
+    }
+
+    input {
+        margin-top: 10px;
+        width: 72%;
+        font-size: 15px;
+        border: 2px solid variables.$border-color;
+        border-radius: 6px;
+        background-color: variables.$color-dark-accent;
+        padding: 0.5rem;
+        font-family: var(--font-sans);
+    }
+
+    select {
+        margin-top: 10px;
+        width: 77%;
+        font-size: 15px;
+        border-radius: 6px;
+        border: 2px solid variables.$border-color;
+        background-color: variables.$color-dark-accent;
+        padding: 0.5rem;
+        font-family: var(--font-sans);
+    }
+}
+
+.profile-container {
+    background-color: variables.$color-dark-accent;
+    border-radius: 10px;
+    box-shadow: 0 6px 10px variables.$border-shadow;
+    border: 2px solid variables.$border-color;
+    display: grid;
+    width: 100%;
+    max-width: 700px;
+    grid-template-rows: auto auto;
+    grid-template-columns: 49% 1% 50%;
+    grid-template-areas: 
+    "profileheader profileheader profileheader"
+    "profileleft profiledivider profileright"
+    "profilelinks profilelinks profilelinks"
+    "profilebottom profilebottom profilebottom";
+
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .profileheader {
+        width: 100%;
+        grid-area: profileheader;
+        background-color: variables.$banner-color;
+        border-radius: 10px;
+    }
+
+    .profileleft {
+        grid-area: profileleft;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        margin-top: 5px;
+    }
+
+    .profileright {
+        grid-area: profileright;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        margin-top: 5px;
+    }
+
+    .profilelinks {
+        grid-area: profilelinks;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        margin-top: 5px;
+
+        h2 {
+            margin-left: 10px;
+        }
+
+        hr {
+            background-color: variables.$color-accent;
+            width: 93%;
+            height: 4px;
+            align-self: center;
+            border: 0;
+            border-radius: 6px;
+            margin: 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .profilebottom {
+        grid-area: profilebottom;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        margin-top: 5px;
+
+        hr {
+            background-color: variables.$color-accent;
+            width: 93%;
+            height: 4px;
+            align-self: center;
+            border: 0;
+            border-radius: 6px;
+            margin: 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            margin-left: 10px;
+        }
+    }
+
+    .profiledivider {
+        grid-area: profiledivider;
+        height: auto;
+        
+        hr {
+            background-color: variables.$color-accent;
+            height: 93%;
+            width: 4px;
+            border: 0;
+            border-radius: 6px;
+            margin: 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .profilefield {
+
+        p {
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        margin-left: 10px;
+
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .profile-callsigncard {
+        font-size: 40px;
+        font-weight: bold;
+        margin-left: 20px;
+        margin-top: 20px;
+        margin-bottom: 2px;
+    }
+
+    .profile-blurb {
+        font-size: variables.$font-medium;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+}
+
+.settingsbox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: variables.$color-accent;
+    max-width: 700px;
+    border: 2px solid variables.$border-color;
+    box-sizing: 0 6px 10px variables.$border-shadow;
+    border-radius: 6px;
+
+    h2 {
+        margin-left: 20px;
+    }
+
+    h1 {
+        margin-left: 20px;
+    }
+
+    p {
+        margin-left: 10px;
+    }
+
+    hr {
+        background-color: variables.$color-secondary;
+            height: 93%;
+            width: 4px;
+            border: 0;
+            border-radius: 6px;
+            margin: 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+    }
+
+    .profilesetting {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+
+        margin-left: 20px;
+
+        input:read-only {
+            margin-top: 10px;
+            width: 40%;
+            font-size: 15px;
+            border: 2px solid variables.$border-color;
+            border-radius: 6px;
+            background-color: variables.$color-dark-accent;
+            padding: 0.5rem;
+            font-family: var(--font-sans);
+            margin-bottom: 10px;
+            color: variables.$dimmed-color;
+        }
+
+        input {
+            margin-top: 10px;
+            width: 40%;
+            font-size: 15px;
+            border: 2px solid variables.$border-color;
+            border-radius: 6px;
+            background-color: variables.$color-dark-accent;
+            padding: 0.5rem;
+            font-family: var(--font-sans);
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        select {
+            margin-top: 10px;
+            width: 43%;
+            font-size: 15px;
+            border-radius: 6px;
+            border: 2px solid variables.$border-color;
+            background-color: variables.$color-dark-accent;
+            padding: 0.5rem;
+            font-family: var(--font-sans);
+        }
+
+        select:disabled {
+            margin-top: 10px;
+            width: 43%;
+            font-size: 15px;
+            border-radius: 6px;
+            border: 2px solid variables.$border-color;
+            background-color: variables.$color-dark-accent;
+            color: variables.$dimmed-color;
+            padding: 0.5rem;
+            font-family: var(--font-sans);
+        }
+    }
+
+    .button-area {
+        display: flex;
+        flex-direction: row;
+        height: 40px;
+
+        margin-bottom: 20px;
+
+        .edit-button {
+            background-color: variables.$button-color;
+            border-radius: 6px;
+            transform: 0.15s ease;
+            margin-left: 20px;
+            border: none;
+            width: 60px;
+            height: 40px;
+            transition: 0.15s ease;
+            font-family: var(--font-sans);
+        }
+
+        .save-button {
+            background-color: variables.$button-green;
+            border-radius: 6px;
+            transform: 0.15s ease;
+            margin-left: 20px;
+            border: none;
+            width: 60px;
+            height: 40px;
+            transition: 0.15s ease;
+            font-family: var(--font-sans);
+        }
+
+        .save-button:hover {
+            background-color: variables.$button-green-hover;
+        }
+
+        .cancel-button {
+            background-color: variables.$button-red;
+            border-radius: 6px;
+            transform: 0.15s ease;
+            margin-left: 20px;
+            border: none;
+            width: 60px;
+            height: 40px;
+            transition: 0.15s ease;
+            font-family: var(--font-sans);
+        }
+
+        .cancel-button:hover {
+            background-color: variables.$button-red-hover;
+        }
+    }
+}
