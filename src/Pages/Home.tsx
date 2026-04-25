@@ -9,30 +9,7 @@ export default function Home({ setView }: { setView: (v: "home" | "pota") => voi
 
     return (
         <div className="contact-container">
-            <div className="contact-type">
-                <div className="settingschange" onClick={() => openModal("operator")}>
-                    <SettingsIcon className="seticon" />
-                    <label>Session Settings</label>
-                </div>
-            </div>
-            <div className="contact-type">
-                <div className="pota">
-                    <PotaIcon className="potaicon" />
-                    <label>POTA</label>
-                </div>
-            </div>
-            <div className="contact-type">
-                <div className="normal">
-                    <NormalIcon className="normalicon" />
-                    <label>Normal Logging</label>
-                </div>
-            </div>
-            <div className="contact-type">
-                <div className="fieldday">
-                    <FieldDayIcon className="fielddayicon" />
-                    <label>Field Day</label>
-                </div>
-            </div>
+            
         </div>
     );
 }
