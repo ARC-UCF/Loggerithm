@@ -1,31 +1,71 @@
 @font-face {
-    font-family: 'Montserrat';
-    src: url('../assets/Montserrat-Bold.woff2') format('woff2');
+    font-family: 'Geist';
+    src: url('../assets/Geist-Bold.woff2') format('woff2');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Montserrat';
-    src: url('../assets/Montserrat-Italic.woff2') format('woff2');
+    font-family: 'Geist';
+    src: url('../assets/Geist-Regular.woff2') format('woff2');
     font-weight: normal;
-    font-style: italic;
+    font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Montserrat';
-    src: url('../assets/Montserrat-Black.woff2') format('woff2');
+    font-family: 'Geist';
+    src: url('../assets/Geist-Black.woff2') format('woff2');
     font-weight: 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Montserrat';
-    src: url('../assets/Montserrat-Regular.woff2') format('woff2');
-    font-weight: normal;
+    font-family: 'Geist';
+    src: url('../assets/Geist-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../assets/Geist-SemiBold.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../assets/Geist-Medium.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../assets/Geist-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../assets/Geist-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../assets/Geist-Thin.woff2') format('woff2');
+    font-weight: 100;
     font-style: normal;
     font-display: swap;
 }

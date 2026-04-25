@@ -10,4 +10,9 @@ export default defineConfig({
     svgr(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  server: {
+    proxy: {
+      "/server": "http://localhost:3000",
+    }
+  }
 })

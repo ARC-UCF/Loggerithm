@@ -14,6 +14,43 @@ $banner-color: #5588bd;
 $error-color: #ff5d5d;
 $success-color: #60ff5d;
 
+$toast-error: #df5050;
+$toast-success: #52d74f;
+$toast-info: #58a2e8;
+
+$pota-color: #4ba449;
+$pota-color-dimmed: #306e2f;
+$normal-color: #515fa5;
+$normal-color-dimmed: #333d70;
+$field-day-color: #9a55bf;
+$field-day-color-dimmed: #703a8d;
+$settings-color: #9f9f9f;
+$settings-color-dimmed: #7f7f7f;
+
+/* Grays */
+$gray-deepest: #151515;
+$gray-deep: #222222;
+$gray-medium: #353535;
+$gray-med-light: #3f3f3f;
+$gray-light: #4a4a4a;
+$gray-border: rgba(93, 93, 93, 0.05);
+$gray-border-hi: rgba(113, 113, 113, 0.35);
+
+/* Golds */
+$gold-accent: #ffff5a;
+$gold-dim-accent: #bcbc4f;
+$gold-border: rgba(203, 203, 84, 0.05);
+$gold-border-hi: rgba(235, 255, 59, 0.35);
+
+/* Texts */
+$text-primary: #fffbe5;
+$text-dimmed: #b5b3a8;
+$text-muted: #818181;
+
+/* Misc */
+$error-color: #d25252;
+$success-color: #77cd53;
+
 $button-green: #75db73;
 $button-green-hover: #448e43;
 $button-red: #fb3838;
@@ -33,8 +70,10 @@ $font-large: 20px;
 $font-xl: 24px;
 $font-xxl: 28px;
 
+$version: "v1.0.0";
+
 :root {
   color-scheme: dark;
-  --font-sans: "Montserrat", system-ui, -apple-system, sans-serif;
+  --font-sans: "Geist", system-ui, -apple-system, sans-serif; /* Im considering changing the font to Geist, since it's more modern looking and nicer. More rounded than Monsterrat */
   font-family: var(--font-sans);
 }

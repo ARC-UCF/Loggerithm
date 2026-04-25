@@ -1,9 +1,16 @@
 @use './variables.scss';
 
+/* Primary layout components */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0}
+html {scroll-behavior: smooth; }
+
 body {
-    background-color: variables.$color-bg;
+    background-color: variables.$gray-deepest;
     padding: 0;
     margin: 0;
+    font-size: 16px;
+    line-height: 1.75;
 }
 
 .wrap {
@@ -15,56 +22,30 @@ body {
     min-height: 100vh;
 }
 
-.navbar_header {
+.container {
+    padding-top: variables.$navbar-height;
+    background-color: variables.$gray-deepest;
+    height: 100%;
     width: 100%;
-    background-color: variables.$color-secondary;
-    height: 60px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+}
+
+/* Navbar components */
+
+nav {
+    background-color: variables.$gray-deepest;
+    z-index: 100;
     display: flex;
     flex-direction: row;
+    border-bottom: 1px solid variables.$gray-light;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2.5rem;
 
-    .navbar_left {
-        width: 50%;
-        display: flex;
-        flex-direction: row;
-        height: 100%;
-        align-items: center;
-    }
-
-    .navbar_right {
-        width: 50%;
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        height: 100%;
-    }
-
-    .navbar_profile {
-        width: auto;
-        height: 40px;
-        top: 100%;
-        background-color: variables.$button-color;
-
-        transition: 0.15s ease;
-
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-
-        margin-right: 10px;
-
-        border-radius: 4px;
-        border: 2px solid variables.$border-color;
-        font-family: var(--font-sans);
-        font-size: variables.$font-medium;
-
-        p {
-            margin-left: 5px;
-        }
-    }
-
-    .navbar_profile:hover {
-        background-color: variables.$button-hover;
-    }
+    /* scss lets us nest them! Good for organization! */
 }
 
 .profile_logo {
@@ -75,22 +56,112 @@ body {
     margin-left: 10px;
 }
 
-.container {
-    padding-top: variables.$navbar-height;
-    background-color: variables.$color-bg;
-    height: 100%;
+/* Contact stylesheets */
+
+.contact-container {
+    display: flex;
+    flex-direction: column;
+
+    height: auto;
+    width: 100%;
+    min-width: 100px;
+    max-width: 600px;
+    gap: 15px;
+}
+
+.contact-type {
+    height: 100px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    padding: 5px 5px;
+
+    /* Settings change component, so you can prompt the modal to update your parameters. */
+
+    .button-contact {
+        background: variables.$gray-deepest;
+        color: variables.$gold-accent;
+        border: 1px solid variables.$gold-accent;
+        border-radius: 100px;
+    }
+}
+
+/* Toast */
+
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column-reverse;
     align-items: center;
+    gap: 10px;
+    z-index: 1200; /* Something, something, we made z-index be 1000 for modal so let's set this guy to 1200 so it always appears on top */
+
+    .toast {
+        padding: 12px 16px;
+        border-radius: 6px;
+        min-width: 200px;
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: row;
+
+        box-shadow: 0 5px 15px variables.$border-shadow;
+        border: 2px solid variables.$border-color;
+        animation: fadeIn 0.5s ease;
+
+        .toast.success {
+            background-color: variables.$toast-success;
+        }
+
+        .toast.error {
+            background-color: variables.$toast-error;
+        }
+
+        .toast.info {
+            background-color: variables.$toast-info;
+        }
+    }
+
+    /* Toast icon */
+
+    .toasticon {
+        width: 20px;
+        height: 20px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .toasticon.error {
+        fill: variables.$toast-error;
+    }
+
+    .toasticon.info {
+        fill: variables.$toast-info;
+    }
+
+    .toasticon.success {
+        fill: variables.$toast-success;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 }
 
-.h2-style {
-    font-size: variables.$font-large;
-}
+/* Login/form template (it's basically good for any type of form, even if it's not a login thing. Might switch the name of it later.) */
 
-.loginbox {
+.loginbox { /* Good form base, but I'm too lazy to change it. */
     width: 100%;
     height: auto;
     max-width: 500px;
@@ -124,6 +195,8 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+/* Success/error text stuff for success/error messages on the form pages. Might become void when toasts are implemented. */
 
 .error {
     font-size: variables.$font-medium;
@@ -161,10 +234,7 @@ body {
     }
 }
 
-.center-aligned {
-    align-self: center;
-    justify-self: center;
-}
+/* Global field style, good for any text input/select boxes w/ labels */
 
 .field {
     display: flex;
@@ -203,6 +273,92 @@ body {
     }
 }
 
+/* Misc styles */
+
+.center-aligned {
+    align-self: center;
+    justify-self: center;
+}
+
+.h2-style {
+    font-size: variables.$font-large;
+}
+
+/* Input modal */
+
+.modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background-color: variables.$color-secondary;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: auto;
+    border-radius: 6px;
+    border: 2px solid variables.$border-color;
+    box-shadow: 0 5px 15px variables.$border-shadow;
+
+    h2 {
+        margin: 10px;
+        padding: 10px 10px;
+    }
+
+    button {
+        width: 75%;
+        height: 30px;
+        border-radius: 6px;
+        border: 2px solid variables.$border-color;
+        background-color: variables.$button-color;
+        font-size: 14px;
+        font-family: var(--font-sans);
+        transition: 0.15s ease;
+        padding: 5px 5px;
+        margin-bottom: 10px;
+    }
+
+    button:hover {
+        background-color: variables.$button-hover;
+    }
+
+    input {
+        margin-top: 10px;
+        width: 90%;
+        font-size: 15px;
+        border: 2px solid variables.$border-color;
+        border-radius: 6px;
+        background-color: variables.$color-dark-accent;
+        padding: 0.5rem;
+        font-family: var(--font-sans);
+        padding: 10px 10px;
+        margin-bottom: 10px;
+    }
+
+    select {
+        margin-top: 10px;
+        width: 77%;
+        font-size: 15px;
+        border-radius: 6px;
+        border: 2px solid variables.$border-color;
+        background-color: variables.$color-dark-accent;
+        padding: 0.5rem;
+        font-family: var(--font-sans);
+    }
+}
+
+/* Profile components. Old stylesheet, not in use for now. */
+
 .profile-container {
     background-color: variables.$color-dark-accent;
     border-radius: 10px;
@@ -213,7 +369,7 @@ body {
     max-width: 700px;
     grid-template-rows: auto auto;
     grid-template-columns: 49% 1% 50%;
-    grid-template-areas: 
+    grid-template-areas: /* mmm grid areas my beloved */
     "profileheader profileheader profileheader"
     "profileleft profiledivider profileright"
     "profilelinks profilelinks profilelinks"
@@ -339,6 +495,8 @@ body {
         margin-bottom: 10px;
     }
 }
+
+/* Settings style, not useful anymore unless a formal settings page is re-implemented. */
 
 .settingsbox {
     width: 100%;
