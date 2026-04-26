@@ -17,6 +17,17 @@ export default function POTA( {setView }: { setView: (v: "home" | "pota") => voi
                     />
                 </div>
                 <div className="field">
+                    <label>What frequency are you on?</label>
+                    <input
+                        type="text"
+                        name="frequency"
+                        placeholder="Frequency"
+                        aria-label="Frequency"
+                        aria-required
+                        required
+                    />
+                </div>
+                <div className="field">
                     <label><b>If this is a Park-To-Park Contact</b>, enter the park number(s) of the contact (each entry separated by a comma)</label>
                     <input
                         type="text"
@@ -45,6 +56,26 @@ export default function POTA( {setView }: { setView: (v: "home" | "pota") => voi
                         aria-label="The strength of your contact's signal"
                         required
                         aria-required
+                    />
+                </div>
+                <div className="field">
+                    <label>What is the state they're contacting you from?</label>
+                    <input
+                        type="text"
+                        name="state"
+                        placeholder="Contact's state"
+                        aria-label="The contact's state"
+                        required
+                        aria-required
+                    />
+                </div>
+                <div className="field">
+                    <label>Comments</label>
+                    <input
+                        type="text"
+                        name="comments"
+                        placeholder="Comments"
+                        aria-label="Comments"
                     />
                 </div>
             </div>
