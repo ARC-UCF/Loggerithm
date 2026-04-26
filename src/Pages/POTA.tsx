@@ -37,23 +37,23 @@ export default function POTA( {setView }: { setView: (v: "home" | "pota") => voi
                     />
                 </div>
                 <div className="field">
-                    <label>What is your signal strength?</label>
+                    <label>Transmit Signal Strength</label>
                     <input
                         type="text"
                         name="txstrength"
-                        placeholder="Your signal strength"
-                        aria-label="Your reported signal strength"
+                        placeholder="Tansmit Signal Strength"
+                        aria-label="Your transmitted signal strength"
                         required
                         aria-required
                     />
                 </div>
                 <div className="field">
-                    <label>What is the signal strength you've received?</label>
+                    <label>Received Signal Strength</label>
                     <input 
                         type="text"
                         name="rxstrength"
-                        placeholder="Your contact's signal strength"
-                        aria-label="The strength of your contact's signal"
+                        placeholder="Received Signal Strength"
+                        aria-label="Your received signal strength"
                         required
                         aria-required
                     />
