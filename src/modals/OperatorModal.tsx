@@ -49,7 +49,7 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
 
         console.log(`${behalfCall}, ${formTX}, ${fMode}`);
 
-        if (!behalfCall) {
+        if (behalfCall) {
             localStorage.setItem("behalfCall", behalfCall);
             setCallOperator(behalfCall);
         } else {
