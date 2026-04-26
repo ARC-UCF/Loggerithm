@@ -1,5 +1,57 @@
 export default function POTA( {setView }: { setView: (v: "home" | "pota") => void }) {
     return (
-        
+        <form className="loginbox">
+            <div className="logintop">
+                <h2>Submit a POTA Log</h2>
+                <div className="field">
+                    <label>Enter the callsign of your contact</label>
+                    <input
+                        type="text"
+                        name="contact"
+                        placeholder="Contact callsign"
+                        aria-label="Enter the contact's callsign"
+                        aria-required
+                        required
+                        maxLength={6}
+                        minLength={4}
+                    />
+                </div>
+                <div className="field">
+                    <label><b>If this is a Park-To-Park Contact</b>, enter the park number(s) of the contact (each entry separated by a comma)</label>
+                    <input
+                        type="text"
+                        name="parks"
+                        placeholder="Contact parks"
+                        aria-label="Enter the parks of the contact (if applicable)"
+                    />
+                </div>
+                <div className="field">
+                    <label>What is your signal strength?</label>
+                    <input
+                        type="text"
+                        name="txstrength"
+                        placeholder="Your signal strength"
+                        aria-label="Your reported signal strength"
+                        required
+                        aria-required
+                    />
+                </div>
+                <div className="field">
+                    <label>What is the signal strength you've received?</label>
+                    <input 
+                        type="text"
+                        name="rxstrength"
+                        placeholder="Your contact's signal strength"
+                        aria-label="The strength of your contact's signal"
+                        required
+                        aria-required
+                    />
+                </div>
+            </div>
+            <div className="loginbottom">
+                <button onClick={() => setView("home")}>Exit</button>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
     );
 }
