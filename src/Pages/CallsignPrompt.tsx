@@ -2,8 +2,10 @@ import { useState } from "react";
 import { PostRequest, getRequest } from "../utils/Requests";
 import { Navigate } from "react-router-dom";
 import { useToast } from "../Components/ToastProvider";
+import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 
 export default function CallsignPrompt () {
+    UpdatePageTitle("Login | Loggerithm");
 
     {/* Using useState here to set error and success messages which we'll get a response from from the backend */}
 

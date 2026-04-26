@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { PostRequest } from "../utils/Requests";
+import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 
 export default function UpdateCallsign() {
+    UpdatePageTitle("Update Callsign | Loggerithm");
+
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     const [call, setCall] = useState("");

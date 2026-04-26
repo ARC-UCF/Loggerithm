@@ -77,9 +77,7 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
         onClose();
     }
 
-    useEffect(() => {
-        enterProvided();
-    }, []);
+    enterProvided();
 
     return (
         <form className="modal" onSubmit={handleSubmit}>
@@ -96,6 +94,7 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
                     minLength={4}
                     maxLength={6}
                     value={callOperator}
+                    onChange={(e) => setCallOperator(e.target.value)}
                 />
             </div>
             <div className="field">
@@ -120,6 +119,7 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
                     max={1000}
                     min={5}
                     value={txPower}
+                    onChange={(e) => setTXPower(e.target.value)}
                 />
             </div>
             <div className="field">
@@ -133,6 +133,7 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
                     type="text"
                     maxLength={10}
                     value={mode.toUpperCase()}
+                    onChange={(e) => setMode(e.target.value.toUpperCase())}
                 />
             </div>
             <div className="field">
