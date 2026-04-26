@@ -1,3 +1,5 @@
+{/* OLD PAGE, NOT FOR USE */}
+
 export default function createAccount() {
     return(
         <form className="loginbox">

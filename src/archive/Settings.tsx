@@ -1,3 +1,5 @@
+{/* OLD PAGE, NOT FOR USE */}
+
 import { useState } from "react";
 
 export default function Settings() {

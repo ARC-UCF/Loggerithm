@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../Components/Navbar.tsx";
 
 export default function Layout() {
+    {/* This layout is the normal layout, which leads to an outlet based upon what's listed in App.tsx */}
     return (
         <div className="wrap">
             <Navbar />
