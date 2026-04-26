@@ -43,7 +43,7 @@ export default function Settings() {
                 <input 
                     name="email"
                     readOnly={true}
-                    value="4noahsentelle@gmail.com"
+                    value=""
                     onChange={handleChange}
                 />
             </div>
