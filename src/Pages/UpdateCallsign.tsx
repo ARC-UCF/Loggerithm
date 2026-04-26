@@ -44,13 +44,12 @@ export default function UpdateCallsign() {
         }
 
         try {
-            const packet = await PostRequest("/update-callsign", { currentcall: currentCallsign, newCall: newCallsign }, "POST", "include");
+            const packet = await PostRequest("/update-callsign", { currentcall: currentCallsign, newCall: newCallsign });
 
-            const res = packet.res;
-            const data = packet.data;
+            const ok = packet.ok
 
-            if (!res.ok) {
-                throw new Error(data.error || "Unable to complete request")
+            if (!ok) {
+                throw new Error(error || "Unable to complete request")
             }
 
             localStorage.setItem("callsign", newCallsign);

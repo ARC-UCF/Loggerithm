@@ -20,15 +20,22 @@ export default function CallsignPrompt () {
             try {
                 const packet = await getRequest(`/check-call?callsign=${encodeURIComponent(callsign)}`); {/* Submit check-call with a query parameter. Might make this an object later. */}
 
-                const res = packet.res;
+                const ok = packet.ok
+
+                if (!ok) {
+                    notify("Error occurred when attempt to check your callsign", "error");
+                    return
+                }
+
                 const data = packet.data;
 
-                if (res.ok && data.exists) {
+                if (ok && packet.data.callsign === callsign) {
                     console.log(`${callsign} exists in the system; navigating to main page.`);
                     <Navigate to="/log" /> 
                     {/* If the user already has their callsign in local storage, there's no reason to keep them on this page. Navigate elsewhere. */}
                 }
             } catch (err: any) {
+                console.log(err);
                 notify("Error when attempting to check callsign", "error");
             } 
         }
@@ -51,13 +58,10 @@ export default function CallsignPrompt () {
         }
 
         try {
-            const packet = await PostRequest("/submit-call", { callsign }, "POST", "include");
-        
-            const res = packet.res;
-            const newDat = packet.data;
+            const packet = await PostRequest("/submit-call", { callsign });
 
-            if (!res.ok) {
-                throw new Error(newDat.error || "Request failed");
+            if (!packet.ok) {
+                throw new Error(packet.error);
             }
 
             {/* If successful, set the callsign variable in localstorage to the callsign the user submitted, which will be uppercase. Will be uesd for referencing who's who. */}
