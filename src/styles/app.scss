@@ -67,7 +67,7 @@ nav {
         }
 
         a:hover {
-            color: variables.$gold-dim-accent;
+            color: variables.$gold-accent;
         }
     }
 }
@@ -142,6 +142,7 @@ nav {
         max-width: 400px;
         display: flex;
         flex-direction: row;
+        background: variables.$gray-deepest;
 
         box-shadow: 0 5px 15px variables.$border-shadow;
         border: 2px solid variables.$border-color;
