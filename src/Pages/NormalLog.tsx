@@ -24,7 +24,7 @@ export default function NormalLog({ setView }: { setView: (v: "home" | "pota" | 
                 </div>
             </div>
             <div className="loginbottom">
-                <button onSubmit={() => setView("home")}>Exit</button>
+                <button type="button" onClick={() => setView("home")}>Exit</button>
                 <button type="submit">Submit</button>
             </div>
         </form>
