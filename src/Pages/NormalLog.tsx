@@ -1,4 +1,8 @@
+import { UpdatePageTitle } from "../utils/UpdatePageInfo";
+
 export default function NormalLog({ setView }: { setView: (v: "home" | "pota" | "field" | "normal") => void }) {
+    UpdatePageTitle("Normal Log | Loggerithm");
+
     return (
         <form className="loginbox">
             <div className="logintop">
