@@ -1,4 +1,4 @@
-export default function POTA( {setView }: { setView: (v: "home" | "pota") => void }) {
+export default function POTA( { setView }: { setView: (v: "home" | "pota" | "field" | "normal") => void }) {
     return (
         <form className="loginbox">
             <div className="logintop">
@@ -8,8 +8,8 @@ export default function POTA( {setView }: { setView: (v: "home" | "pota") => voi
                     <input
                         type="text"
                         name="contact"
-                        placeholder="Contact callsign"
-                        aria-label="Enter the contact's callsign"
+                        placeholder="eg. K9SRH"
+                        aria-label="Enter the contact's callsign eg. K 9 S R H"
                         aria-required
                         required
                         maxLength={6}
@@ -21,8 +21,8 @@ export default function POTA( {setView }: { setView: (v: "home" | "pota") => voi
                     <input
                         type="text"
                         name="frequency"
-                        placeholder="Frequency"
-                        aria-label="Frequency"
+                        placeholder="Frequency (eg. 7.200)"
+                        aria-label="Frequency eg. 7.200"
                         aria-required
                         required
                     />
@@ -32,28 +32,28 @@ export default function POTA( {setView }: { setView: (v: "home" | "pota") => voi
                     <input
                         type="text"
                         name="parks"
-                        placeholder="Contact parks"
-                        aria-label="Enter the parks of the contact (if applicable)"
+                        placeholder="Contact parks eg. US-0001"
+                        aria-label="Enter the parks of the contact (if applicable) (eg. US- 0 0 0 1)"
                     />
                 </div>
                 <div className="field">
-                    <label>Transmit Signal Strength</label>
+                    <label>Signal Report Sent</label>
                     <input
                         type="text"
                         name="txstrength"
-                        placeholder="Tansmit Signal Strength"
-                        aria-label="Your transmitted signal strength"
+                        placeholder="Signal Report Sent eg. 59"
+                        aria-label="Signal Report Sent eg. 5 by 9"
                         required
                         aria-required
                     />
                 </div>
                 <div className="field">
-                    <label>Received Signal Strength</label>
+                    <label>Signal Report Received</label>
                     <input 
                         type="text"
                         name="rxstrength"
-                        placeholder="Received Signal Strength"
-                        aria-label="Your received signal strength"
+                        placeholder="Signal Report Received eg. 59"
+                        aria-label="Signal Report Received eg. 5 by 9"
                         required
                         aria-required
                     />
@@ -63,8 +63,8 @@ export default function POTA( {setView }: { setView: (v: "home" | "pota") => voi
                     <input
                         type="text"
                         name="state"
-                        placeholder="Contact's state"
-                        aria-label="The contact's state"
+                        placeholder="Contact's state eg. FL"
+                        aria-label="The contact's state eg. F L"
                         required
                         aria-required
                     />
@@ -74,8 +74,8 @@ export default function POTA( {setView }: { setView: (v: "home" | "pota") => voi
                     <input
                         type="text"
                         name="comments"
-                        placeholder="Comments"
-                        aria-label="Comments"
+                        placeholder="Additional comments"
+                        aria-label="Additional comments"
                     />
                 </div>
             </div>
