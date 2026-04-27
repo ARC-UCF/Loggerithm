@@ -26,9 +26,7 @@ export default function CallsignPrompt () {
                     notify("Error occurred when attempt to check your callsign", "error");
                     return
                 }
-
-                const data = packet.data;
-
+                
                 if (ok && packet.data.callsign === callsign) {
                     console.log(`${callsign} exists in the system; navigating to main page.`);
                     <Navigate to="/log" /> 
