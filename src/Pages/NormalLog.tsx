@@ -1,4 +1,4 @@
-export default function NormaLog({ setView }: { setView: (v: "home" | "pota" | "field" | "normal") => void }) {
+export default function NormalLog({ setView }: { setView: (v: "home" | "pota" | "field" | "normal") => void }) {
     return (
         <form className="loginbox">
             <div className="logintop">

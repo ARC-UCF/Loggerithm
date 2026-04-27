@@ -12,7 +12,7 @@ export default function Home({ setView }: { setView: (v: "home" | "pota" | "fiel
             <button className="contact-choice" onClick={() => openModal("operator")}>
                 Settings
             </button>
-            <button className="contact-choice">
+            <button className="contact-choice" onClick={() => setView("normal")}>
                 Normal Log
             </button>
             <button className="contact-choice" onClick={() => setView("pota")}>
