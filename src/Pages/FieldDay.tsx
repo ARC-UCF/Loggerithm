@@ -1,7 +1,4 @@
-import { UpdatePageTitle } from "../utils/UpdatePageInfo";
-
 export default function FieldDay({ setView }: { setView: (v: "home" | "pota" | "field" | "normal") => void }) {
-    UpdatePageTitle("Field Day Log | Loggerithm");
     return (
         <form className="loginbox">
             <div className="logintop">
