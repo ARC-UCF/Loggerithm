@@ -38,13 +38,28 @@ $gray-medium: #353535;
 $gray-med-light: #3f3f3f;
 $gray-light: #4a4a4a;
 $gray-border: rgba(93, 93, 93, 0.05);
+$gray-ghost: rgba(113, 113, 113, 0.1);
 $gray-border-hi: rgba(113, 113, 113, 0.35);
 
 /* Golds */
 $gold-accent: #ffff5a;
 $gold-dim-accent: #bcbc4f;
+$gold-pale: #dada8d;
 $gold-border: rgba(203, 203, 84, 0.05);
+$gold-ghost: rgba(235, 255, 59, 0.1);
 $gold-border-hi: rgba(235, 255, 59, 0.35);
+
+/* Greens */
+$green-pale: #8dda8d;
+$green-ghost: rgba(98, 255, 59, 0.1);
+
+/* Blues */
+$blue-pale: #8db6da;
+$blue-ghost: rgba(59, 183, 255, 0.1);
+
+/* Reds */
+$red-pale: #da8d8d;
+$red-ghost: rgba(255, 98, 59, 0.1);
 
 /* Texts */
 $text-primary: #fffbe5;

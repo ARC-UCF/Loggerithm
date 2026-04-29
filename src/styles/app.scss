@@ -273,6 +273,157 @@ nav {
     }
 }
 
+/* Audit logs */
+
+.auditpage {
+    background: variables.$gray-deep;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        color: variables.$text-primary;
+        font-size: 2rem;
+        letter-spacing: 0.03em;
+    }
+
+    p {
+        color: variables.$text-primary;
+        font-size: 1.1rem;
+        line-height: 1.1;
+
+        .goldtext {
+            color: variables.$gold-pale;
+        }
+    
+        .redtext {
+            color: variables.$red-pale;
+        }
+    
+        .greentext {
+            color: variables.$green-pale;
+        }
+    
+        .bluetext {
+            color: variables.$blue-pale;
+        }
+    }
+
+    .auditholder {
+        background: variables.$gray-medium;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        display: grid;
+        gap: 1rem;
+        border-radius: 6px;
+        grid-template-areas: repeat(auto-fit, minmax(95%, 1fr));
+
+        .auditcard {
+            background: variables.$gray-deepest;
+            border-radius: 6px;
+            padding: 0.65rem 0.5rem;
+            gap: 0.75rem;
+
+            .audittag {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.65rem;
+                font-weight: 500;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                padding: 0.25rem 0.75rem;
+                border-radius: 100px;
+                margin-bottom: 0.1rem;
+            }
+
+            .audittag::before {
+                content: '';
+                width: 6px; height: 8px;
+                border-radius: 50%;
+                display: inline-block;
+            }
+
+            .audittag--gold {
+                background: variables.$gold-ghost;
+                color: variables.$gold-pale;
+            }
+
+            .audittag--gold::before {
+                background: variables.$gold-ghost;
+            }
+
+            .audittag--green {
+                background: variables.$green-ghost;
+                color: variables.$green-pale;
+            }
+
+            .audittag--green::before {
+                background: variables.$green-ghost;
+            }
+
+            .audittag--blue {
+                background: variables.$blue-ghost;
+                color: variables.$blue-pale;
+            }
+
+            .audittag--blue::before {
+                background: variables.$blue-ghost;
+            }
+
+            .audittag--red {
+                background: variables.$red-ghost;
+                color: variables.$red-pale;
+            }
+
+            .audittag--red::before {
+                background: variables.$blue-ghost;
+            }
+
+            .loginfoheader {
+                display: flex;
+                flex-direction: row;
+                gap: 0.75rem;
+
+                h2 {
+                    margin-bottom: 0.25rem;
+                    font-size: 2rem;
+                    color: variables.$blue-pale;
+                }
+            }
+
+            .loginfofooter {
+                display: flex;
+                flex-direction: row;
+                gap: 0.75rem;
+            }
+
+            .loginfobody {
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+                background: variables.$gray-deep;
+                padding: 0.5rem;
+                border-radius: 6px;
+                margin-bottom: 1rem;
+                flex-wrap: wrap;
+
+                .box {
+                    background-color: variables.$gray-light;
+                    padding: 0.25rem;
+                    border-radius: 6px;
+                }
+            }
+        }
+    }
+}
+
 /* Global field style, good for any text input/select boxes w/ labels */
 
 .field {

@@ -7,6 +7,7 @@ import { AppProvider } from "../Components/AppProvider.tsx";
 import { ToastProvider } from "../Components/ToastProvider.tsx";
 import { ModalProvider } from "../modals/ModalProvider.tsx";
 import Logger from "./Logger.tsx";
+import AuditLogs from "./AuditLogs.tsx";
 
 export default function App() {
     return (
@@ -22,6 +23,7 @@ export default function App() {
                                 <Route element={<Layout />}>
                                     <Route path="/update-call" element={<UpdateCallsign />} />
                                     <Route path="/log" element={<Logger />} />
+                                    <Route path="/audit-logs" element={<AuditLogs />} />
                                 </Route>
                             </Route>
                         </Routes>
