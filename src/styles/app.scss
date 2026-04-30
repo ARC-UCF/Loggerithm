@@ -92,6 +92,7 @@ footer {
 
         a {
             color: variables.$text-muted;
+            font-family: var(--font-sans);
             text-decoration: none;
             font-size: 1rem;
             letter-spacing: 0.03em;
@@ -224,6 +225,173 @@ footer {
             opacity: 1;
             transform: translateY(0);
         }
+    }
+}
+
+// Search help pages stuff
+
+.helpbox {
+    max-width: 900px;
+    width: 100%;
+    margin: 1rem 2.25rem;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    background: variables.$gray-deep;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    h1 {
+        font-size: 2rem;
+    }
+    
+    p {
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+
+    input {
+        margin-top: 10px;
+        width: 80%;
+        font-size: 15px;
+        border: 2px solid variables.$gold-border;
+        border-radius: 6px;
+        background-color: variables.$gray-deepest;
+        padding: 0.5rem;
+        font-family: var(--font-sans);
+    }
+
+    .pagesholder {
+        width: 100%;
+        background: variables.$gray-deepest;
+        border-radius: 6px;
+        padding: 2rem 1rem;
+        display: flex;
+        gap: 0.5rem;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+
+        .categoryholder {
+            width: 100%;
+            display: flex;
+        }
+
+        .pageinformation {
+            width: 100%;
+            height: auto;
+            background: variables.$gray-deep;
+            padding: 0.5rem 0.75rem;
+            transition: 0.2s ease;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            color: variables.$white-color;
+            cursor: pointer;
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .categoryheader {
+                font-size: 0.8rem;
+            }
+
+            .keywords {
+                font-size: 0.8rem;
+            }
+        }
+
+        .pageinformation:hover {
+            background: variables.$gold-accent;
+            color: variables.$gray-deepest;
+        }
+    }
+}
+
+// Help pages
+
+.helpmain {
+    max-width: 900px;
+    width: 100%;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    background: variables.$gray-deep;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    .tableofcontents {
+        gap: 5px;
+        display: flex;
+        flex-direction: column;
+        background: variables.$gray-deepest;
+        width: 100%;
+        border-radius: 6px;
+        padding: 0.25rem 0.5rem;
+
+        h2 {
+            font-size: 1rem;
+        }
+
+        ul {
+            gap: 5px;
+            display: flex;
+            flex-direction: column;
+            font-size: 1rem;
+            list-style: none;
+        }
+    }
+
+    .helpcontent {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.3;
+            margin-top: 0.25rem;
+        }
+
+        ul {
+            margin-left: 2rem;
+            padding: 0.5rem;
+
+            li {
+                font-size: 1.1rem;
+            }
+        }
+    }
+
+    h1 {
+        font-size: 2rem;
     }
 }
 

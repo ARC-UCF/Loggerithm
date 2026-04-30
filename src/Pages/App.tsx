@@ -8,6 +8,10 @@ import { ToastProvider } from "../Components/ToastProvider.tsx";
 import { ModalProvider } from "../modals/ModalProvider.tsx";
 import Logger from "./Logger.tsx";
 import AuditLogs from "./AuditLogs.tsx";
+import HelpSurface from "./HelpSurface.tsx";
+import HelpLayout from "../Layouts/HelpLayout.tsx";
+import SubmitALog from "./HelpPages/SubmitALog.tsx";
+import HelpPageLayout from "../Layouts/HelpPageLayout.tsx";
 
 export default function App() {
     return (
@@ -24,6 +28,12 @@ export default function App() {
                                     <Route path="/update-call" element={<UpdateCallsign />} />
                                     <Route path="/log" element={<Logger />} />
                                     <Route path="/audit-logs" element={<AuditLogs />} />
+                                </Route>
+                                <Route path="/help" element={<HelpLayout />}>
+                                    <Route index element={<HelpSurface />} />
+                                    <Route element={<HelpPageLayout />}>
+                                        <Route path="submit-a-log" element={<SubmitALog />} />
+                                    </Route>
                                 </Route>
                             </Route>
                         </Routes>
