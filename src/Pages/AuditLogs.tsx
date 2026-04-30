@@ -1,4 +1,8 @@
+import { UpdatePageTitle } from "../utils/UpdatePageInfo";
+
 export default function AuditLogs() {
+    UpdatePageTitle("Audit Logs | Loggerithm");
+
     return (
         <div className="auditpage">
             <h1>Audit Logs</h1>

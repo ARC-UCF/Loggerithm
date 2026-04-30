@@ -6,7 +6,7 @@ export default function Navbar() {
 
     return (
         <nav>
-            <h2>Loggerithm v1.0.0</h2>
+            <h2>Loggerithm</h2>
             <ul className="nav-links">
                 <li><a><Link to="/log">Log</Link></a></li>
                 <li><a><Link to="/update-call">Change Callsign</Link></a></li>
