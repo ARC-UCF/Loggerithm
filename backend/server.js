@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import session from "express-session";
+require("dotenv").config();
 
 const logger_version = "v1.0.0"
 const app = express();
@@ -13,11 +15,18 @@ app.use(cors({
 
 app.use(express.json());
 
-const users = [
-    {
-        callsign: "K9SRH", 
-    }
-];
+app.use(
+    session({
+        secret: process.env.TOKEN,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,
+            secure: false,
+            maxAge: 1000 * 60 * 60 * 48 // 2 days
+        },
+    })
+);
 
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
