@@ -3,3 +3,5 @@ const db = new Database("database.db");
 
 db.pragma('journal mode = WAL');
 
+
+

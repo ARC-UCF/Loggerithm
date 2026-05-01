@@ -19,8 +19,6 @@ const users = [
     }
 ];
 
-
-
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
     console.log(`Loggerithm operating on ${logger_version}`)
