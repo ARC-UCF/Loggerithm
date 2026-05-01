@@ -3,7 +3,6 @@ const db = new Database("database.db");
 
 db.pragma('journal mode = WAL');
 
-
 db.prepare(`
     CREATE TABLE IF NOT EXISTS logs (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
