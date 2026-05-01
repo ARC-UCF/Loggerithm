@@ -23,6 +23,7 @@ app.use(express.json());
 
 app.use(
     session({
+        name: "loggerithm.sid",
         secret: process.env.SESSIONSECRET,
         resave: false,
         saveUninitialized: false,
@@ -66,6 +67,25 @@ app.get("/server/check-call", requireAuth, (req, res) => {
 
 app.get("/server/me", requireAuth, (req, res) => {
     res.json(req.session.user);
+});
+
+app.post("/server/logout", requireAuth, (req, res) => {
+    const sessionId = req.sessionID;
+    const username = req.session?.user?.call;
+
+    if (sessionId) {
+        activeUsers.delete(sessionId);
+    }
+
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ error: "Failed to logout" });
+        }
+
+        res.clearCookie("loggerithm.sid");
+
+        res.status(200).json({ message: "Logged out" });
+    });
 });
 
 app.post("/server/login", (req, res) => {

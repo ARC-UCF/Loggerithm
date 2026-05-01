@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { PostRequest } from "../utils/Requests";
 import { UpdatePageTitle } from "../utils/UpdatePageInfo";
+import { useToast } from "../Components/ToastProvider";
 
 export default function UpdateCallsign() {
-    UpdatePageTitle("Update Callsign | Loggerithm");
-
-    const [success, setSuccess] = useState("");
-    const [error, setError] = useState("");
+    UpdatePageTitle("Features | Loggerithm");
+    const { notify } = useToast();
+ 
     const [call, setCall] = useState("");
     
     {/* Using useEffect so we can load this when the page loads, and so we don't go into an infinite loop and die */}
@@ -21,69 +21,40 @@ export default function UpdateCallsign() {
         }
     }, []);
 
-    async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
-        {/* Same thing from the callsign prompt applies here; making sure you have a call and what not and updating it on the backend plus frontend for future use. */}
-        e.preventDefault();
-
-        const form = e.currentTarget;
-        const data = new FormData(form);
-
-        const currentCallsign = localStorage.getItem("callsign") as string;
-        const newCallsign = (data.get("callsign") as string).trim().toUpperCase();
-
-        if (!newCallsign) {
-            setSuccess("");
-            setError("Please provide a new callsign");
-            return;
-        }
-
-        if (!currentCallsign) {
-            setSuccess("");
-            setError("You do not have a current callsign");
-            return;
-        }
-
+    async function handleClick() {
+        console.log("Clicked");
         try {
-            const packet = await PostRequest("/update-callsign", { currentcall: currentCallsign, newCall: newCallsign });
+            const packet = await PostRequest("/logout");
 
-            const ok = packet.ok
-
-            if (!ok) {
-                throw new Error(error || "Unable to complete request")
+            if (!packet.ok) {
+                notify("Error when attempting to log out", "error");
+                return;
             }
 
-            localStorage.setItem("callsign", newCallsign);
+            if (packet.status !== 200) {
+                notify(`${packet.data.error}`, "error");
+                return;
+            }
 
-            setSuccess(`Successfully updated callsign to ${newCallsign}`);
-            setError("");
+            localStorage.setItem("callsign", "");
+            notify("Successfully logged out", "success");
+            window.location.reload();
         } catch (err: any) {
-            setSuccess("");
-            setError(err.message);
+            console.log(err);
+            notify("Error when attempting to log out of session", "error");
         }
     }
 
     return (
-        <form className="loginbox" onSubmit={handleSubmit}>
+        <div className="loginbox">
             <div className="logintop">
-                <h2>Update Callsign</h2>
+                <h2>Session Features</h2>
                 <label>Your callsign is currently {call}!</label>
-                <div className="field">
-                    <label>Different user? Update your callsign</label>
-                    <input
-                        type="text"
-                        placeholder="Your callsign"
-                        aria-label="Enter your updated callsign"
-                        aria-required
-                        required
-                        name="callsign"
-                    />
-                </div>
-                {success && <p className="success">{success}</p>}
-                {error && <p className="error">{error}</p>}
+                <label>Click the "logout" button to end this session</label>
             </div>
             <div className="loginbottom">
-                <button aria-label="Submit updated callsign">Submit Updated Callsign</button>
+                <button aria-label="Logout" onClick={handleClick}>Logout</button>
             </div>
-        </form>
+        </div>
     );
 }

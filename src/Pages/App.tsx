@@ -28,7 +28,7 @@ export default function App() {
                             </Route>
                             <Route element={<ProtectedRoute />}> {/* Elements located under this are protected and require a user to have their callsign in local storage to access them. */}
                                 <Route element={<Layout />}>
-                                    <Route path="/update-call" element={<UpdateCallsign />} />
+                                    <Route path="/session" element={<UpdateCallsign />} />
                                     <Route path="/log" element={<Logger />} />
                                     <Route path="/audit-logs" element={<AuditLogs />} />
                                 </Route>
