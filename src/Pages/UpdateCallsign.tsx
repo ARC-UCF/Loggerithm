@@ -11,7 +11,7 @@ export default function UpdateCallsign() {
     
     {/* Using useEffect so we can load this when the page loads, and so we don't go into an infinite loop and die */}
     useEffect(() => {
-        const currentCallsign = (localStorage.getItem("callsign") as string).trim().toUpperCase();
+        const currentCallsign = localStorage.getItem("callsign") as string;
         console.log("got current call");
 
         if (currentCallsign) {
@@ -28,7 +28,7 @@ export default function UpdateCallsign() {
         const form = e.currentTarget;
         const data = new FormData(form);
 
-        const currentCallsign = (localStorage.getItem("callsign") as string).trim().toUpperCase();
+        const currentCallsign = localStorage.getItem("callsign") as string;
         const newCallsign = (data.get("callsign") as string).trim().toUpperCase();
 
         if (!newCallsign) {

@@ -5,14 +5,7 @@ const link = "/server"; // !!! This link is a proxy. Configure the listening por
 
 type CredentialsOption = RequestCredentials;
 
-function buildHeaders(token?: string): HeadersInit {
-    return {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}`} : {}),
-    };
-}
-
-export async function PostRequest(route: any, info: Record<string, unknown> = {}, token?: string, credentials: CredentialsOption = "same-origin") {
+export async function PostRequest(route: any, info: Record<string, unknown> = {}, credentials: CredentialsOption = "include") {
     try {
         // Piecing the link + route together from the page it was submitted to create the api call.
 
@@ -21,7 +14,9 @@ export async function PostRequest(route: any, info: Record<string, unknown> = {}
         const res = await fetch(`${link}${route}`, {
             method: "POST",
             credentials: credentials,
-            headers: buildHeaders(token),
+            headers: {
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify(info),
         });
 
@@ -41,12 +36,14 @@ export async function PostRequest(route: any, info: Record<string, unknown> = {}
 
 // Send get requests to the backend, particularly for checking call databases and what not.
 
-export async function getRequest(route: any, token?: string, credentials: CredentialsOption = "same-origin") {
+export async function getRequest(route: any, credentials: CredentialsOption = "include") {
     try {
         const res = await fetch(`${link}${route}`, {
             method: "GET",
             credentials: credentials,
-            headers: buildHeaders(token),
+            headers: {
+                "Content-Type": "application/json",
+            },
         });
 
         if (!res.ok) { // If the API errors, throw an error.

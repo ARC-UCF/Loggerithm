@@ -1,40 +1,46 @@
-import { useState } from "react";
 import { PostRequest, getRequest } from "../utils/Requests";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useToast } from "../Components/ToastProvider";
 import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 
 export default function CallsignPrompt () {
     UpdatePageTitle("Login | Loggerithm");
+    const navigate = useNavigate();
+    const { notify } = useToast();
 
     {/* Using useState here to set error and success messages which we'll get a response from from the backend */}
 
-    const [success, setSuccess] = useState("");
-    const [error, setError] = useState("");
-
     async function checkForCall() {
-        const callsign = (localStorage.getItem("callsign") as string).trim().toUpperCase();
-        const { notify } = useToast();
+        let callsign = localStorage.getItem("callsign") as string
 
         if (callsign) {
             try {
                 const packet = await getRequest(`/check-call?callsign=${encodeURIComponent(callsign)}`); {/* Submit check-call with a query parameter. Might make this an object later. */}
 
-                const ok = packet.ok
+                const ok = packet.ok;
 
                 if (!ok) {
                     notify("Error occurred when attempt to check your callsign", "error");
-                    return
+                    return;
                 }
+
+                if (packet.status !== 200) {
+                    notify(`${packet.data.error}`, "error");
+                    return;
+                }
+
+                console.log("Checking callsign.");
                 
                 if (ok && packet.data.callsign === callsign) {
                     console.log(`${callsign} exists in the system; navigating to main page.`);
-                    <Navigate to="/log" /> 
                     {/* If the user already has their callsign in local storage, there's no reason to keep them on this page. Navigate elsewhere. */}
+                    navigate("/log");
+                } else {
+                    console.log(`${packet.data.callsign} is not ${callsign}`);
                 }
             } catch (err: any) {
                 console.log(err);
-                notify("Error when attempting to check callsign", "error");
+                notify(err.message, "error");
             } 
         }
     }
@@ -50,26 +56,31 @@ export default function CallsignPrompt () {
         const callsign = (data.get("callsign") as string).trim().toUpperCase();
 
         if (!callsign) {
-            setError("Please enter a callsign");
-            setSuccess("");
+            notify("Please enter a callsign!", "error");
             return;
         }
 
         try {
-            const packet = await PostRequest("/submit-call", { callsign });
+            const packet = await PostRequest("/login", { call: callsign });
+
+            console.log(packet);
 
             if (!packet.ok) {
                 throw new Error(packet.error);
             }
 
+            if (packet.status !== 200) {
+                notify(`${packet.data.error}`, "error");
+                return;
+            }
+
             {/* If successful, set the callsign variable in localstorage to the callsign the user submitted, which will be uppercase. Will be uesd for referencing who's who. */}
 
             localStorage.setItem("callsign", callsign);
-            setSuccess(`Successfully set callsign to ${callsign}`);
-            setError("");
+            notify("Successfully logged in!", "success");
+            navigate("/log");
         } catch (err: any) {
-            setError(err.message);
-            setSuccess("");
+            notify(err.message, "error");
         }
     }
 
@@ -99,9 +110,6 @@ export default function CallsignPrompt () {
                         required
                     />
                 </div>
-                {/* These guys will enable themselves whenever we use useState to set either of them to true (or have them display text, effectively) */}
-                {success && <p className="success">{success}</p>}
-                {error && <p className="error">{error}</p>}
             </div>
             <div className="loginbottom">
                 <button aria-label="Submit callsign" >Submit Callsign</button>
