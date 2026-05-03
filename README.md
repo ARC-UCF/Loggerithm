@@ -50,7 +50,7 @@ Therefore, use `ok` to make sure the process sent correctly and returned correct
 
 `data` will contain an `error` message if there is any sort of error sent back by the server, otherwise it will contain `message` for successful requests, as well as other data depending on the request.
 
-Using `data` currently causes an error with the TypeScript, and it's currently best to just ignore it.
+Using `data` currently causes an error with the TypeScript, and it's currently best to just ignore it, as it does not cause the code to break.
 
 **GET Requests**
 
