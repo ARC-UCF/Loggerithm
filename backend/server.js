@@ -4,6 +4,10 @@ dotenv.config({ path: "secrets.env" });
 import express from "express";
 import cors from "cors";
 import session from "express-session";
+import csv from "csv-parser";
+import fs from "fs";
+import path from "path";
+import https from "https";
 
 const logger_version = "v1.0.0"
 const app = express();
@@ -11,6 +15,47 @@ const app = express();
 let sessionStore;
 
 const csv_link = "https://pota.app/all_parks_ext.csv"; {/* The link we shall use to download the CSV for reference. */}
+const filePath = path.join(__dirname, "data", "parks.csv");
+
+// CSV yippee!!
+
+function downloadCSV(url, outputPath) {
+    return new Promise((resolve, reject) => {
+        const file = fs.createWriteStream(outputPath);
+
+        https.get(url, (res) => {
+            if (res.status !== 200) {
+                reject(new Error(`Failed to get file: ${res.statusCode}`));
+                return;
+            }
+
+            res.pipe(file);
+
+            file.on("finish", (err) => {
+                file.close(resolve);
+            });
+        }).on("error", (err) => {
+            fs.unlink(outputPath, () => reject(err));
+        });
+    });
+}
+
+function loadCSV(filePath) {
+    return new Promise((resolve, reject) => {
+        const results = [];
+
+        fs.createReadStream(filePath)
+        .pipe(csv())
+        .on("data", (row) => results.push(row))
+        .on("end", () => resolve(results))
+        .on("error", reject);
+    });
+}
+
+(async () => {
+    await downloadCSV(csv_link, filePath);
+    console.log("CSV downloaded");
+});
 
 const activeUsers = new Map(); 
 const operatorStates = new Map();
