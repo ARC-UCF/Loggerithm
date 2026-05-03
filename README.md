@@ -36,10 +36,18 @@ To show any API errors to the user, use the `{ notify }` function of the `useToa
 
 **GET Requests**
 
-`/check-call?callsign=${callsign}` - GET - Check Callsign - Check the state of the callsign on the backend.
-`/park?park=${park}` - GET - Get the information related to a POTA park using the park's identifier (eg. US-4036).
-`/get-ver` - GET - Get the current version of Loggerithm.
+* `/server/check-call?callsign=${callsign}` - GET - Check Callsign - Check the state of the callsign on the backend.
+* `/server/park?park=${park}` - GET - Get the information related to a POTA park using the park's identifier (eg. US-4036).
+* `/server/get-ver` - GET - Get the current version of Loggerithm.
+* `/server/me` - GET - Returns the client's user information on the server.
+* `/server/operator` - GET - Returns the client's operator state, `null` if none exists.
+* `/server/operators` - GET - Returns all active operators.
+* `/server/active-users` - GET - Returns all active users.
+
 
 **POST Requests**
 
-`/update-callsign` - POST - Update Callsign - Params: `{currentCallsign: string, newCallsign: string}` - Used to update someone's callsign to a new one. 
+* `/server/login` - POST - Params: `{ call: string }` - Logs the user into the server, which records them as active. Also grants the user a cookie for a session id on the server to recognize the client and grant access to requests which require authentication.
+* `/server/loguout` - POST - No params - Logs the user out of their session by deleting their active session, which removes them from active users and active operators, as well as deletes their cookie.
+* `/server/update-operator-state` - POST - Params: `{ mode: string, band: string, radio: string, power: string, active: "yes" || "no"}` - Update the client's operator state on the server, to reflect it to the other clients.
+* `/server/submit-pota-log` - POST - Params: `{ callsign: string, station: string, power: string, type: "pota" || "normal" || "field day", contact: string, frequency: string, parks?: string, rstsent: string, rstsent: string, state: string, comments: string }` - Submit a POTA log to the backend. Will return 400 if `type` is not `pota`.
