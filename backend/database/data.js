@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 const db = new Database("database.db");
 
-db.pragma('journal mode = WAL');
+db.pragma('journal mode = WAL').run();
 
 db.prepare(`
     CREATE TABLE IF NOT EXISTS logs (
@@ -10,6 +10,7 @@ db.prepare(`
         station TEXT,
         contact TEXT,
         contact_ops TEXT,
+        power TEXT,
         state TEXT,
         region TEXT,
         contact_parks TEXT,
@@ -24,7 +25,7 @@ db.prepare(`
         logged TEXT DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
         lastupdated TEXT DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
     )
-`);
+`).run();
 
 db.prepare(`
     CREATE INDEX IF NOT EXISTS idx_logs_operator ON logs(operator);
@@ -39,10 +40,10 @@ db.prepare(`
     CREATE INDEX IF NOT EXISTS idx_logs_state ON logs(state);
     CREATE INDEX IF NOT EXISTS idx_logs_id ON logs(id);
     CREATE INDEX IF NOT EXISTS idx_logs_mode ON logs(mode);
-`);
+`).run();
 
 db.prepare(`
-    CREATE TRIGGER update_logs_timestamp
+    CREATE TRIGGER IF NOT EXISTS update_logs_timestamp
     AFTER UPDATE ON logs
     FOR EACH ROW
     BEGIN
@@ -50,6 +51,6 @@ db.prepare(`
         SET lastupdated = (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
         WHERE id = OLD.id;
     END;
-`);
+`).run();
 
 
