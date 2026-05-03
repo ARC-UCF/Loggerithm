@@ -12,5 +12,47 @@ export const hIndex = [
         description: "Learn how to properly setup your operator using the operator modal!",
         keywords: ["operator", "setup", "pota", "field day", "parks", "log"],
         category: "Getting Started",
-    }
+    },
+    {
+        path: "/help/editing-a-log",
+        title: "Editing A Log You Submitted",
+        description: "Learn how to edit a log you submitted!",
+        keywords: ["log", "logging", "edit", "basics", "software", "editing"],
+        category: "Getting Started",
+    },
+    {
+        path: "/help/q-codes",
+        title: "Q Codes",
+        description: "Learn about Q codes, how they work, and what they are!",
+        keywords: ["q", "qsl", "qrz", "qsy", "codes", "high frequency", "hf"],
+        category: "Jargon",
+    },
+    {
+        path: "/help/field-day",
+        title: "What Is Field Day?",
+        description: "Learn more about Field Day, Field Day requirements, and what the point of it is!",
+        keywords: ["event", "events", "field day", "field", "day", "requirements", "operation", "operating"],
+        category: "Amateur Radio Events",
+    },
+    {
+        path: "/help/pota",
+        title: "What Is POTA (Parks on the Air)?",
+        description: "Learn more about POTA, POTA requirements, and what the point of it is!",
+        keywords: ["event", "events", "parks", "on", "the", "air", "operating", "hf", "high frequency", "radio"],
+        category: "Amateur Radio Events",
+    },
+    {
+        path: "/help/overview-of-modes",
+        title: "A Brief Overview of HF Modes",
+        description: "Learn more about the different types of HF modes you can use!",
+        keywords: ["hf", "modes", "FT8", "FT4", "RTTY", "data", "SSB", "voice", "digi"],
+        category: "Getting Started",
+    },
+    {
+        path: "/help/field-day-rules",
+        title: "Field Day Rules",
+        description: "Current Field Day Rules for the Upcoming Field Day Event",
+        keywords: ["event", "events", "field day", "field", "day", "requirements", "operation", "operating", "rules"],
+        category: "Event Documentation",
+    },
 ] // Uhhh it'll error for now.

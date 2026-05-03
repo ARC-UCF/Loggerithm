@@ -5,7 +5,7 @@ import { hIndex } from "../Pages/HelpIndex";
 import ScrollToTop from "../Components/ScrollToTop";
 
 export default function HelpPageLayout() {
-    <ScrollToTop />
+    ScrollToTop();
 
     const contentRef = useRef<HTMLDivElement>(null);
     const [headings, setHeadings] = useState<Heading[]>([]);

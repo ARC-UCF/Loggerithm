@@ -14,6 +14,7 @@ import SubmitALog from "./HelpPages/SubmitALog.tsx";
 import HelpPageLayout from "../Layouts/HelpPageLayout.tsx";
 import NotFound from "../Components/NotFoundPages/NotFound.tsx";
 import SetupYourOperator from "./HelpPages/SetupYourOperator.tsx";
+import ContactPage from "./Contact.tsx";
 
 export default function App() {
     return (
@@ -25,6 +26,7 @@ export default function App() {
                             <Route element={<Layout />}>
                                 <Route path="/" element={<CallsignPrompt />} /> {/* Laying out default pathways. Default path is callsign prompt (for now); we'll check localstorage and always route here if no callsign is detected. */}
                                 <Route path="*" element={<NotFound />} />
+                                <Route path="/contact" element={<ContactPage />} />
                             </Route>
                             <Route element={<ProtectedRoute />}> {/* Elements located under this are protected and require a user to have their callsign in local storage to access them. */}
                                 <Route element={<Layout />}>

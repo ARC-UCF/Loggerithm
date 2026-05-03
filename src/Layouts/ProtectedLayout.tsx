@@ -2,7 +2,7 @@ import { Navigate, Outlet} from "react-router-dom";
 {/* We'll be using this protected route and adapting it from its origin to force users to submit their callsign for audit and competitive purposes */}
 
 function ProtectedRoute() {
-    const callsign = localStorage.getItem("callsign") as string
+    const callsign = localStorage.getItem("callsign") as string;
     {/* The above fetches the callsign from localstorage. */}
 
     if (!callsign) {

@@ -76,6 +76,7 @@ app.post("/server/logout", requireAuth, (req, res) => {
 
     if (sessionId) {
         activeUsers.delete(sessionId);
+        operatorStates.delete(sessionId);
     }
 
     req.session.destroy((err) => {
@@ -121,6 +122,20 @@ app.post("/server/update-operator-state", requireAuth, (req, res) => {
 
     const call = req.session.user.call;
 
+    if (!mode) {
+        res.status(400).json({ error: "A mode is required" }); // Users need to have a mode set
+    }
+
+    if (!band) {
+        res.status(400).json({ error: "A band is required" }); // Users need to have a band set
+    }
+
+    if (!power) {
+        res.status(400).json({ error: "TX power is required" }); // Users need to have their power set
+    }
+
+    // All the rest of the information can be ignored/be left as null because it isn't pertinent.
+
     const newState = {
         call,
         radio,
@@ -154,6 +169,10 @@ app.post("/server/submit-pota-log", requireAuth, (req, res) => {
     }
 
 
+});
+
+app.get("/server/active-users", requireAuth, (req, res) => {
+    res.status(200).json(Array.from(activeUsers.values()));
 });
 
 app.use((req, res, next) => {

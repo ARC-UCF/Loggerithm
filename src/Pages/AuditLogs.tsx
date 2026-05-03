@@ -1,7 +1,9 @@
+import ScrollToTop from "../Components/ScrollToTop";
 import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 
 export default function AuditLogs() {
     UpdatePageTitle("Audit Logs | Loggerithm");
+    ScrollToTop();
 
     return (
         <div className="auditpage">

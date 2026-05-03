@@ -91,7 +91,7 @@ export default function CallsignPrompt () {
     return (
         <form className="loginbox" onSubmit={handleSubmit}>
             <div className="logintop">
-                <h2>Callsign Login</h2>
+                <h1>Callsign Login</h1>
                 <div className="field">
 
                     {/* Some general information stuff so people know what to do */}

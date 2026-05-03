@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useToast } from "../Components/ToastProvider";
+import { PostRequest } from "../utils/Requests";
 
 export default function OperatorModal({ defaultValue, onClose }: { defaultValue?: string; onClose: () => void}) {
 
@@ -54,7 +55,7 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
     }
 
     async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
-        console.log("Form was submitted.")
+        console.log("Form was submitted.");
 
         e.preventDefault();
 
@@ -70,6 +71,20 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
         const fActive = data.get("opactive") as string
 
         console.log(`${behalfCall}, ${formTX}, ${fMode}`);
+
+        try {
+            const packet = PostRequest("/update-operator-state", { mode: fMode, band: fBand, radio: fRadio, power: formTX, active: fActive}); // We do not need to send station call or parks being activated, parks and station call will be reflected on the logging portion of the software.
+
+            if (packet.status !== 200) {
+                notify(`${packet.data.error}`, "error");
+                return;
+            } else {
+                console.log("Successfully passed information.");
+            }
+        } catch(err: any) {
+            notify(err.message, "error");
+            return; // Return if there's an error, we do not want the user's client to update if the server didn't take the information.
+        }
 
         if (fActive) {
             setActive(fActive);
@@ -175,14 +190,16 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
                 />
             </div>
             <div className="field">
-                <label>Manually Set Your Band Operation</label>
-                <label>Set this field if you're using other software to log, so other operators know your band of operation.</label>
+                <label>Manually Set Your Band Operation *</label>
+                <label>Set this field to inform others of what band you are operating on.</label>
                 <input 
                     name="bandop"
                     placeholder="Set your band operation (eg. 20M)"
                     aria-label="Manually set your band of operation eg. 20 Meters"
                     value={band.toUpperCase()}
                     onChange={(e) => setBand(e.target.value.toUpperCase())}
+                    required
+                    aria-required="true"
                 />
             </div>
             <div className="field">
@@ -191,7 +208,7 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
                     required
                     name="txpower"
                     placeholder="TX Power"
-                    aria-required
+                    aria-required="true"
                     aria-label="Enter your TX power"
                     type="number"
                     max={1000}
@@ -206,7 +223,7 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
                     required
                     name="mode"
                     placeholder="Mode"
-                    aria-required
+                    aria-required="true"
                     aria-label="Enter your contact mode"
                     type="text"
                     maxLength={10}

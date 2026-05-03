@@ -17,6 +17,8 @@ export default function HelpSurface() {
             " " +
             item.description +
             " " +
+            item.category +
+            " " +
             item.keywords.join(" ");
         
         return text.toLowerCase().includes(query.toLowerCase());
@@ -33,7 +35,7 @@ export default function HelpSurface() {
         <div className="helpbox">
             <h1>Help Documentation</h1>
             <p>This page includes all the help documentation for using this software, as well as for doing logging, making HF contacts, and other relevant documentation for doing high frequency logging and operations.</p>
-            <p>Make search queries using the provided search box, which queries based on page title and page context.</p>
+            <p>You may use the search box to search through all of the available help pages. Searches will index the tags, title, description, and category of the page.</p>
 
             <input
                 type="text"

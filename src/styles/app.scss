@@ -422,6 +422,42 @@ footer {
     }
 }
 
+// Divider
+
+.contactbox {
+    background: variables.$gray-deep;
+    border-radius: 6px;
+    padding: 1.5rem 1rem;
+    gap: 0.9rem;
+    box-shadow: 0 6px 10px variables.$border-shadow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    width: 100%;
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+        line-height: 1.1;
+    }
+
+    ul {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        margin-left: 2rem;
+        margin-top: 1rem;
+        gap: 1rem;    
+    }
+}
+
 /* Login/form template (it's basically good for any type of form, even if it's not a login thing. Might switch the name of it later.) */
 
 .loginbox { /* Good form base, but I'm too lazy to change it. */
@@ -457,6 +493,10 @@ footer {
     align-items: center;
     display: flex;
     flex-direction: column;
+
+    h1 {
+        font-size: 1.5rem;
+    }
 }
 
 /* Success/error text stuff for success/error messages on the form pages. Might become void when toasts are implemented. */

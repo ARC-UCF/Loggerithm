@@ -48,7 +48,7 @@ export default function UpdateCallsign() {
     return (
         <div className="loginbox">
             <div className="logintop">
-                <h2>Session Features</h2>
+                <h1>Session Features</h1>
                 <label>Your callsign is currently {call}!</label>
                 <label>Click the "logout" button to end this session</label>
             </div>

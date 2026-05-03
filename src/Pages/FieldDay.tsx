@@ -2,6 +2,7 @@ export default function FieldDay({ setView }: { setView: (v: "home" | "pota" | "
     return (
         <form className="loginbox">
             <div className="logintop">
+                <h1>Field Day Log</h1>
                 <div className="field">
                     <label>Contact's Callsign</label>
                     <input type="text" name="contactcall" placeholder="eg. K9SRH" required aria-required aria-label="Contact's callsign eg. K 9 S R H" maxLength={6} minLength={4} />

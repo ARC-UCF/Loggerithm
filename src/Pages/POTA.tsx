@@ -2,7 +2,7 @@ export default function POTA( { setView }: { setView: (v: "home" | "pota" | "fie
     return (
         <form className="loginbox">
             <div className="logintop">
-                <h2>Submit a POTA Log</h2>
+                <h1>Submit a POTA Log</h1>
                 <div className="field">
                     <label>Enter the callsign of your contact</label>
                     <input

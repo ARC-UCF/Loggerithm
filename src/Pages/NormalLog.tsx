@@ -2,6 +2,7 @@ export default function NormalLog({ setView }: { setView: (v: "home" | "pota" | 
     return (
         <form className="loginbox">
             <div className="logintop">
+                <h1>Normal Log</h1>
                 <div className="field">
                     <label>Callsign's Contact</label>
                     <input type="text" name="contactcall" placeholder="eg. K9SRH"  required aria-required aria-label="Callsign's Contact eg. K 9 S R H" minLength={4} maxLength={6} />
