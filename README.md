@@ -34,6 +34,24 @@ You can also use `getRequest` to make a get request to the backend, which functi
 
 To show any API errors to the user, use the `{ notify }` function of the `useToast()` component provided by the `ToastProvider`. 
 
+**Return**
+
+When you use **PostRequest** or **getRequest**, the information will come back with three fields:
+
+* `ok: false || true`
+* `status: integer`
+* `data: {}`
+
+If `ok` is false then an error occurred while attempting to run the code, and it didn't execute correctly.
+
+`status` is based off of the status the server sends back. `status` will be 0 **IF** `ok` is false. Which, again, will only occur if there was an error in executing the code.
+
+Therefore, use `ok` to make sure the process sent correctly and returned correctly, then use `status` to determine the state of the request. 
+
+`data` will contain an `error` message if there is any sort of error sent back by the server, otherwise it will contain `message` for successful requests, as well as other data depending on the request.
+
+Using `data` currently causes an error with the TypeScript, and it's currently best to just ignore it.
+
 **GET Requests**
 
 * `/server/check-call?callsign=${callsign}` - GET - Check Callsign - Check the state of the callsign on the backend.
