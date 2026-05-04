@@ -8,6 +8,10 @@ import csv from "csv-parser";
 import fs from "fs";
 import path from "path";
 import https from "https";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const logger_version = "v1.0.0"
 const app = express();
@@ -15,16 +19,37 @@ const app = express();
 let sessionStore;
 
 const csv_link = "https://pota.app/all_parks_ext.csv"; {/* The link we shall use to download the CSV for reference. */}
-const filePath = path.join(__dirname, "data", "parks.csv");
+const filePath = path.join(__dirname, "database", "parks.csv");
+
+const activeUsers = new Map(); 
+const operatorStates = new Map();
+const parkMap = new Map();
 
 // CSV yippee!!
+
+async function fileExists(filepath) {
+    try {
+        await fs.access(filepath);
+        return true;
+    } catch {
+        return false;
+    }
+}
 
 function downloadCSV(url, outputPath) {
     return new Promise((resolve, reject) => {
         const file = fs.createWriteStream(outputPath);
 
-        https.get(url, (res) => {
-            if (res.status !== 200) {
+        const options = {
+            // A user agent is required to access the site to download the csv. Without it, you get a 403 error.
+            headers: {
+              "User-Agent": "Mozilla/5.0",
+              "Accept": "text/csv,application/octet-stream;q=0.9,*/*;q=0.8"
+            }
+        };
+
+        https.get(url, options, (res) => {
+            if (res.statusCode !== 200) {
                 reject(new Error(`Failed to get file: ${res.statusCode}`));
                 return;
             }
@@ -40,11 +65,11 @@ function downloadCSV(url, outputPath) {
     });
 }
 
-function loadCSV(filePath) {
+function loadCSV(filepath) {
     return new Promise((resolve, reject) => {
         const results = [];
 
-        fs.createReadStream(filePath)
+        fs.createReadStream(filepath)
         .pipe(csv())
         .on("data", (row) => results.push(row))
         .on("end", () => resolve(results))
@@ -52,13 +77,27 @@ function loadCSV(filePath) {
     });
 }
 
-(async () => {
-    await downloadCSV(csv_link, filePath);
-    console.log("CSV downloaded");
-});
+async function downloadAndRun() {
+    console.log("Running");
 
-const activeUsers = new Map(); 
-const operatorStates = new Map();
+    if (await fileExists(filePath)) {
+        console.log("File exists");
+    } else {
+        console.log("Downloading file");
+        await downloadCSV(csv_link, filePath);
+    }
+
+    console.log("Reading file.");
+    const parks = await loadCSV(filePath);
+
+    parks.forEach(p => parkMap.set(p.reference, p));
+
+    console.log("Table created.");
+
+    console.log("CSV downloaded");
+}
+
+downloadAndRun();
 
 app.use(cors({
     origin: "http://localhost:5173",
@@ -188,7 +227,7 @@ app.post("/server/update-operator-state", requireAuth, (req, res) => {
         band,
         power,
         active,
-        lastUpdated = Date.now(),
+        lastUpdated: Date.now(),
     };
 
     req.session.operator = newState;
