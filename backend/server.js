@@ -48,7 +48,7 @@ function downloadCSV(url, outputPath) {
             }
         };
 
-        https.get(url, options, (res) => {
+        https.get(url, options, (res) => { // This will attempt to get the file and will error if it can't.
             if (res.statusCode !== 200) {
                 reject(new Error(`Failed to get file: ${res.statusCode}`));
                 return;
@@ -56,10 +56,10 @@ function downloadCSV(url, outputPath) {
 
             res.pipe(file);
 
-            file.on("finish", (err) => {
-                file.close(resolve);
+            file.on("finish", (err) => { 
+                file.close(resolve); // Resolve
             });
-        }).on("error", (err) => {
+        }).on("error", (err) => { // Runs if an error occurs.
             fs.unlink(outputPath, () => reject(err));
         });
     });
@@ -69,7 +69,7 @@ function loadCSV(filepath) {
     return new Promise((resolve, reject) => {
         const results = [];
 
-        fs.createReadStream(filepath)
+        fs.createReadStream(filepath) // This code reads the csv file and catches errors.
         .pipe(csv())
         .on("data", (row) => results.push(row))
         .on("end", () => resolve(results))
@@ -80,33 +80,34 @@ function loadCSV(filepath) {
 async function downloadAndRun() {
     console.log("Running");
 
-    if (await fileExists(filePath)) {
-        console.log("File exists");
+    // Will update this code later to include error catching to prevent complete shut down of the system. Would recommend a download of the csv file when you have access to the internet.
+
+    if (await fileExists(filePath)) { // Check if the path exists
+        console.log("File exists"); // It does, so we'll log it in the console
     } else {
-        console.log("Downloading file");
+        console.log("Downloading file"); // It doesn't, so we'll proceed to try and download it.
         await downloadCSV(csv_link, filePath);
     }
 
-    console.log("Reading file.");
-    const parks = await loadCSV(filePath);
+    console.log("Reading file."); 
+    const parks = await loadCSV(filePath); // Read the file
 
-    parks.forEach(p => parkMap.set(p.reference, p));
+    parks.forEach(p => parkMap.set(p.reference, p)); // For each entry, load the park reference number as the primary key, and then add the rest of the information, like coordinates and grid squares, to the list of parks in the park map.
 
-    console.log("Table created.");
+    console.log("Table created."); // Log
 
-    console.log("CSV downloaded");
+    console.log("CSV downloaded"); // Confirm CSV download and read
 }
 
-downloadAndRun();
-
-app.use(cors({
+app.use(cors({ // Setup the listening port.
     origin: "http://localhost:5173",
     credentials: true
 }));
 
-app.use(express.json());
+app.use(express.json()); // Express
 
-app.use(
+app.use( // This creates the session tracker on the backend which will issue cookies to clients to keep track of who's who.
+    // Cookies are not persistent. If the server shuts down, all previous cookies will be invalidated. This is by design.
     session({
         name: "loggerithm.sid",
         secret: process.env.SESSIONSECRET,
@@ -122,89 +123,91 @@ app.use(
 
 // 48 hours should be long enough to incldue the duration of Field Day and other longer events. Will lengthen if needed.
 
-app.use((req, res, next) => {
+app.use((req, res, next) => { // Gets the session store for use elsewhere in the code.
     if (!sessionStore) {
         sessionStore = req.sessionStore;
     }
     next();
 });
 
-function requireAuth(req, res, next) {
+function requireAuth(req, res, next) { // Use for any API calls requiring authentication. Anyone not authenticated will not be able to access several of the api calls.
     if (!req.session.user) { 
         return res.status(401).json({ error: "Not logged in" });
     }
     next();
 }
 
-app.get("/server/check-call", (req, res) => {
+app.get("/server/check-call", (req, res) => { // Check callsign request, which uses a query.
     console.log("Got call");
-    const { callsign } = req.query;
+    const { callsign } = req.query; // Get the query.
 
     if (!callsign) {
         console.log("No callsign was provided.");
         res.status(404).json({ error: "No callsign was provided" });
     }
 
-    if (callsign) {
+    if (callsign) { // Need to update to check through callsigns.
         res.status(200).json({ message: "User was found!", callsign: callsign});
     }
 });
 
-app.get("/server/me", requireAuth, (req, res) => {
+app.get("/server/me", requireAuth, (req, res) => { // Gets the user.
     res.json(req.session.user);
 });
-
-app.post("/server/logout", requireAuth, (req, res) => {
+ 
+app.post("/server/logout", requireAuth, (req, res) => { // Allows the user to terminate their session if they so desire, and deletes the cookie stored on their device.
+    // This is good if you want to switch users.
+    // Note that this requires auth. You shouldn't be able to logout if you've not been previously authenticated.
     const sessionId = req.sessionID;
     const username = req.session?.user?.call;
 
-    if (sessionId) {
+    if (sessionId) { // Check if the session exists, delete cookies/sessions if it does.
         activeUsers.delete(sessionId);
         operatorStates.delete(sessionId);
     }
 
-    req.session.destroy((err) => {
+    req.session.destroy((err) => { // Delete the requested user's session.
         if (err) {
-            return res.status(500).json({ error: "Failed to logout" });
+            return res.status(500).json({ error: "Failed to logout" }); // Occurs if unable to delete.
         }
 
-        res.clearCookie("loggerithm.sid");
+        res.clearCookie("loggerithm.sid"); // Name of the cookie.
 
-        res.status(200).json({ message: "Logged out" });
+        res.status(200).json({ message: "Logged out" }); // Confirm logout.
     });
 });
 
-app.post("/server/login", (req, res) => {
+app.post("/server/login", (req, res) => { // Login request.
 
-    const { call } = req.body;
+    const { call } = req.body; // Get the callsign of the requested login.
 
-    if (!call) {
+    if (!call) { // Confirm it was not left blank.
         res.status(400).json({ error: "Username required" });
         return;
     }
 
-    for (const user of activeUsers.values()) {
-        if (user.username === call) {
-            return res.status(409).json({ error: "Callsign already in use" });
+    for (const user of activeUsers.values()) { // Check each callsign already in use, and then send an error if it is.
+        if (user.username === call) { // User.username and call are interchangable. Variable changes based on what you're using.
+            return res.status(409).json({ error: "Callsign already in use" }); // Send a 409 error.
         }
     }
 
-    req.session.user = {
+    req.session.user = { // Create the session.
         call,
     };
 
-    activeUsers.set(req.sessionID, {
+    activeUsers.set(req.sessionID, { // Set the session in active users.
         username: call,
         lastSeen: Date.now(),
     });
 
-    res.status(200).json({ message: "Logged in successfully" });
+    res.status(200).json({ message: "Logged in successfully" }); // Confirm login.
 });
 
-app.post("/server/update-operator-state", requireAuth, (req, res) => {
-    const { mode, band, radio, power, active } = req.body;
+app.post("/server/update-operator-state", requireAuth, (req, res) => { // This is used to update an operator's state on the backend.
+    const { mode, band, radio, power, active } = req.body;  
 
-    const call = req.session.user.call;
+    const call = req.session.user.call; // Get the user's session.
 
     if (!mode) {
         res.status(400).json({ error: "A mode is required" }); // Users need to have a mode set
@@ -220,7 +223,7 @@ app.post("/server/update-operator-state", requireAuth, (req, res) => {
 
     // All the rest of the information can be ignored/be left as null because it isn't pertinent.
 
-    const newState = {
+    const newState = { // Build the state.
         call,
         radio,
         mode,
@@ -230,30 +233,73 @@ app.post("/server/update-operator-state", requireAuth, (req, res) => {
         lastUpdated: Date.now(),
     };
 
-    req.session.operator = newState;
+    req.session.operator = newState; // Add the state to the operator's session.
 
-    operatorStates.set(req.sessionID, newState);
+    operatorStates.set(req.sessionID, newState); // Set the operator in operator states.
 
-    res.status(200).json({ message: "Successfully updated operator" });
+    res.status(200).json({ message: "Successfully updated operator" }); // Confirm update.
 });
 
-app.get("/server/operator", requireAuth, (req, res) => {
+app.get("/server/operator", requireAuth, (req, res) => { // Get the user's operator state. Will return null if none exists.
     res.status(200).json(req.session.operator || {});
 });
 
-app.get("/server/operators", requireAuth, (req, res) => {
+app.get("/server/operators", requireAuth, (req, res) => { // Get a list of all active operators and their states.
     res.status(200).json(Array.from(operatorStates.values()));
 });
 
-app.post("/server/submit-pota-log", requireAuth, (req, res) => {
-    const { callsign, station, power, type, contact, frequency, parks, rstsent, rstreceive, state, comments } = req.body;
+app.post("/server/submit-pota-log", requireAuth, (req, res) => { // Submit a POTA log to the backend.
+    const { callsign, activations, station, power, type, contact, frequency, contactparks, rstsent, rstreceive, state, comments } = req.body;
 
-    if (type !== "pota") {
+    if (type !== "pota") { // Confirm the type is POTA.
         res.status(400).json({ error: "Invalid submission type for this log" });
+        return;
     }
 
+    parks = activations.split(",").map(s = s.trim()).filter(Boolean); // Split the entered park activations by the user.
 
+    if (!parks) { // Confirm the parks entered are not null.
+        res.status(400).json({ error: "You are required to activate at least one park" }); // Error if no parks were entered.
+        return;
+    }
+
+    for (const [park] in parks.entries()) { // Look through the entries of parks, then filter.
+        if (!parkMap.has(park)) { // Check each park to make sure it exists.
+            res.status(400).json({ error: "You have submitted an invalid park" }); // If it doesn't, send a 400 error.
+            return;
+        } else { 
+            console.log(`${park} exists in the list of references`);
+        }
+    };
+
+    if (contactparks) { // Check if the user submitted contact parks.
+        conparks = contactparks.split(",").map(s = s.trim()).filter(Boolean); // Split
+
+        for (const [cpark] in conparks.entries()) { // Check each park to make sure it exists.
+            if (!parkMap.has(cpark)) {
+                res.status(400).json({ error: "The park you listed for the contact does not exist" }); // Send a 400 error if the park does not exist.
+                return;
+            } else {
+                console.log(`${cpark} exists in the list of references`); 
+            }
+        };
+    }
 });
+
+app.post("/server/update-csv", requireAuth, (req, res) => { // Send a update csv request to the server.
+    if (parkMap.entries()) {
+        res.status(400).json({ error: "The function has already been run." }); // Should the backend already be setup, don't run.
+        return;
+    }
+
+    try {
+        await downloadAndRun(); // Will run the download and run function.
+ 
+        res.status(200); // 200 if it works.
+    } catch {
+        res.status(400); // 400 if it doesn't.
+    }
+})
 
 app.get("/server/active-users", requireAuth, (req, res) => {
     res.status(200).json(Array.from(activeUsers.values()));
