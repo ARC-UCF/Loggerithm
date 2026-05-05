@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { hIndex } from "./HelpIndex";
 import { UpdatePageTitle } from "../utils/UpdatePageInfo";
+import Pagination from "../Components/Pagination";
 
 export default function HelpSurface() {
     UpdatePageTitle("Help | Loggerithm");
@@ -24,12 +25,31 @@ export default function HelpSurface() {
         return text.toLowerCase().includes(query.toLowerCase());
     });
 
-    const grouped = filtered.reduce((acc, item) => {
+    const ITEMS_PER_PAGE = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const params = new URLSearchParams(window.location.search);
+    const initialPage = Number(params.get("page")) || 1;
+
+    const paginatedSource = filtered;
+
+    const totalPages = Math.ceil(paginatedSource.length / ITEMS_PER_PAGE);
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+
+    const currentItems = paginatedSource.slice(startIndex, endIndex);
+
+    const grouped = currentItems.reduce((acc, item) => {
         const key = item.category || "Other";
         if (!acc[key]) acc[key] = [];
         acc[key].push(item);
         return acc;
     }, {} as Record<string, typeof hIndex>);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [query]);
 
     return (
         <div className="helpbox">
@@ -58,6 +78,7 @@ export default function HelpSurface() {
                     ))}
                 </div>))}
             </div>
+            {<Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />}
         </div>
     );
 }
