@@ -99,7 +99,7 @@ async function downloadAndRun() {
     console.log("CSV downloaded"); // Confirm CSV download and read
 }
 
-app.use(cors({ // Setup the listening port.
+app.use(cors({ // The location the server sends requests back to.
     origin: "http://localhost:5173",
     credentials: true
 }));
@@ -301,11 +301,11 @@ app.post("/server/update-csv", requireAuth, (req, res) => { // Send a update csv
     }
 })
 
-app.get("/server/active-users", requireAuth, (req, res) => {
+app.get("/server/active-users", requireAuth, (req, res) => { // Get a list of all active users in the session.
     res.status(200).json(Array.from(activeUsers.values()));
 });
 
-app.use((req, res, next) => {
+app.use((req, res, next) => { // Update users's last seen time based on when they last submitted an API request.
     if (req.session?.user) {
         activeUsers.set(req.sessionID, {
             username: req.session.user.call,
@@ -335,7 +335,7 @@ setInterval(() => { // Delete logic for old stuff is here.
     }
 }, 1000 * 60); // Runs every minute. Mostly real-time.
 
-app.listen(3000, () => {
+app.listen(3000, () => { // The location the server listens to.
     console.log("Server running on http://localhost:3000");
     console.log(`Loggerithm operating on ${logger_version}`)
 });
