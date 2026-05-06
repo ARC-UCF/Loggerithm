@@ -4,7 +4,7 @@
 
 Accessibility features are pertinent to software-based material, and as this club is focused on being welcoming to everyone of all walks of life, I've made it part of my mission to ensure accessibility is good for this software/website, which includes adding screenreader details and features to make sure it those with visibility issues among other disabilities are capable of using the site. 
 
-When it comes to website development, a good site for checking accessibility is (Deque University's Web Accessibility Checklist)[https://dequeuniversity.com/checklists/web/]. This is good for a full view of all the accessibility requirements which make a website accessible, such as alt text and the like. 
+When it comes to website development, a good site for checking accessibility is [Deque University's Web Accessibility Checklist](https://dequeuniversity.com/checklists/web/). This is good for a full view of all the accessibility requirements which make a website accessible, such as alt text and the like. 
 
 Even so, I'm going to document some of the most critical features which this website/software needs to ensure good accessibility. 
 

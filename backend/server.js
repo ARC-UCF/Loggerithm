@@ -13,7 +13,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const logger_version = "v1.0.0"
+const logger_version = "v0.1.0";
 const app = express();
 
 let sessionStore;
