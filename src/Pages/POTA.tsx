@@ -1,6 +1,69 @@
+import type React from "react";
+import { PostRequest } from "../utils/Requests";
+import { useToast } from "../Components/ToastProvider";
+import { use, useRef } from "react";
+
 export default function POTA( { setView }: { setView: (v: "home" | "pota" | "field" | "normal") => void }) {
+    const { notify } = useToast();
+    const formRef = useRef(null);
+
+    async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+        console.log("Form submitted");
+
+        e.preventDefault();
+
+        const form = e.currentTarget;
+        const data = new FormData(form);
+
+        const contact = (data.get("contact") as string).trim().toUpperCase();
+        const frequency = (data.get("frequency") as string).trim().toUpperCase();
+        const contactparks = (data.get("parks") as string)?.trim().toUpperCase();
+        const rstsent = (data.get("txstrength") as string).trim().toUpperCase();
+        const rstreceived = (data.get("rxstrength") as string).trim().toUpperCase();
+        const state = (data.get("state") as string).trim().toUpperCase();
+        const comments = data.get("comments");
+
+        const load = {
+            callsign: localStorage.getItem("callsign"),
+            activations: localStorage.getItem("POTAs")?.toUpperCase(),
+            station: localStorage.getItem("behalfCall"),
+            radio: localStorage.getItem("radio")?.toUpperCase(),
+            power: localStorage.getItem("TXPower"),
+            type: "pota",
+            contact: contact,
+            mode: localStorage.getItem("mode")?.toUpperCase(),
+            band: localStorage.getItem("band")?.toUpperCase(),
+            frequency: frequency,
+            contactparks: contactparks,
+            rstsent: rstsent,
+            rstreceive: rstreceived,
+            state: state,
+            comments: comments,
+        }
+
+        console.log(rstsent, rstreceived);
+
+        try {
+            const packet = await PostRequest("/submit-pota-log", load);
+
+            if (!packet.ok) {
+                notify(`An error occurred while submitting your log: ${packet.error}`, "error");
+                return;
+            }
+
+            if (packet.status !== 200) {
+                notify(`An error occurred: ${packet.data.error}`, "error");
+                return;
+            }
+
+            notify("Your log was successfully submitted", "success");
+        } catch (err: any) {
+            notify(`Error: ${err}`, "error");
+        }
+    }
+
     return (
-        <form className="loginbox">
+        <form className="loginbox" ref={formRef} onSubmit={handleSubmit}>
             <div className="logintop">
                 <h1>Submit a POTA Log</h1>
                 <div className="field">

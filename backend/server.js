@@ -9,6 +9,7 @@ import fs from "fs";
 import path from "path";
 import https from "https";
 import { fileURLToPath } from "url";
+import { writePOTALog } from "./database/data.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -256,14 +257,34 @@ app.get("/server/operators", requireAuth, (req, res) => { // Get a list of all a
 });
 
 app.post("/server/submit-pota-log", requireAuth, (req, res) => { // Submit a POTA log to the backend.
-    const { callsign, activations, station, power, type, contact, frequency, contactparks, rstsent, rstreceive, state, comments } = req.body;
+    const { callsign, activations, station, radio, power, type, contact, mode, band, frequency, contactparks, rstsent, rstreceive, state, comments } = req.body;
 
     if (type !== "pota") { // Confirm the type is POTA.
         res.status(400).json({ error: "Invalid submission type for this log" });
         return;
     }
 
-    parks = activations.split(",").map(s = s.trim()).filter(Boolean); // Split the entered park activations by the user.
+    if (!contact) {
+        res.status(400).json({ error: "Please provide the callsign of the person you've contacted" });
+        return;
+    }
+
+    if (!power) {
+        res.status(400).json({ error: "Please provide your TX power" });
+        return;
+    }
+
+    if (!frequency) {
+        res.status(400).json({ error: "Please provide the frequency of the contact" });
+        return;
+    }
+
+    if (!rstsent || !rstreceive) {
+        res.status(400).json({ error: "Please provide a signal report you sent/received" });
+        return;
+    }
+
+    const parks = activations.split(",").map(s => s.trim()).filter(Boolean); // Split the entered park activations by the user.
 
     if (!parks) { // Confirm the parks entered are not null.
         res.status(400).json({ error: "You are required to activate at least one park" }); // Error if no parks were entered.
@@ -291,6 +312,10 @@ app.post("/server/submit-pota-log", requireAuth, (req, res) => { // Submit a POT
             }
         };
     }
+
+    writePOTALog(callsign, activations, station, power, radio, type, contact, mode, band, frequency, contactparks, rstsent, rstreceive, state, comments);
+
+    res.status(200).json({ message: "Uploaded log successfully" });
 });
 
 app.post("/server/update-csv", requireAuth, (req, res) => { // Send a update csv request to the server.

@@ -73,7 +73,7 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
         console.log(`${behalfCall}, ${formTX}, ${fMode}`);
 
         try {
-            const packet = PostRequest("/update-operator-state", { mode: fMode, band: fBand, radio: fRadio, power: formTX, active: fActive}); // We do not need to send station call or parks being activated, parks and station call will be reflected on the logging portion of the software.
+            const packet = await PostRequest("/update-operator-state", { mode: fMode, band: fBand, radio: fRadio, power: formTX, active: fActive}); // We do not need to send station call or parks being activated, parks and station call will be reflected on the logging portion of the software.
 
             if (packet.status !== 200) {
                 notify(`${packet.data.error}`, "error");
