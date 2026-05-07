@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CallsignPrompt from "./CallsignPrompt.tsx";
 import Layout from "../Layouts/Layout.tsx";
-import UpdateCallsign from "./UpdateCallsign.tsx";
+import SessionFeatures from "./SessionFeatures.tsx";
 import ProtectedRoute from "../Layouts/ProtectedLayout.tsx";
 import { AppProvider } from "../Components/AppProvider.tsx";
 import { ToastProvider } from "../Components/ToastProvider.tsx";
@@ -30,7 +30,7 @@ export default function App() {
                             </Route>
                             <Route element={<ProtectedRoute />}> {/* Elements located under this are protected and require a user to have their callsign in local storage to access them. */}
                                 <Route element={<Layout />}>
-                                    <Route path="/session" element={<UpdateCallsign />} />
+                                    <Route path="/session" element={<SessionFeatures />} />
                                     <Route path="/log" element={<Logger />} />
                                     <Route path="/audit-logs" element={<AuditLogs />} />
                                 </Route>

@@ -3,7 +3,7 @@ import { PostRequest } from "../utils/Requests";
 import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 import { useToast } from "../Components/ToastProvider";
 
-export default function UpdateCallsign() {
+export default function SessionFeatures() {
     UpdatePageTitle("Features | Loggerithm");
     const { notify } = useToast();
  
