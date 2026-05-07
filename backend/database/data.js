@@ -87,6 +87,8 @@ function startup() {
     for (const sql of secondindexes) {
         db.prepare(sql).run();
     }
+
+    started = true;
 }
 
 function clean(value) {
