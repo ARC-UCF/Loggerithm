@@ -1,7 +1,7 @@
 import type React from "react";
 import { PostRequest } from "../utils/Requests";
 import { useToast } from "../Components/ToastProvider";
-import { use, useRef } from "react";
+import { useRef } from "react";
 
 export default function POTA( { setView }: { setView: (v: "home" | "pota" | "field" | "normal") => void }) {
     const { notify } = useToast();
