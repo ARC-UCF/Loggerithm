@@ -20,16 +20,17 @@ export default function CallsignPrompt () {
                 const ok = packet.ok;
 
                 if (!ok) {
-                    notify("Error occurred when attempt to check your callsign", "error");
+                    notify("An error occurred while attempting to fetch your callsign", "error");
                     return;
                 }
 
                 if (packet.status !== 200) {
-                    notify(`${packet.data.error}`, "error");
+                    notify(`${packet.error}`, "error");
                     return;
                 }
 
                 console.log("Checking callsign.");
+                console.log(`${callsign} is also ${packet.data.callsign}`);
                 
                 if (ok && packet.data.callsign === callsign) {
                     console.log(`${callsign} exists in the system; navigating to main page.`);

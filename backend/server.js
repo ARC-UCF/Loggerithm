@@ -146,9 +146,16 @@ app.get("/server/check-call", (req, res) => { // Check callsign request, which u
         res.status(404).json({ error: "No callsign was provided" });
     }
 
-    if (callsign) { // Need to update to check through callsigns.
-        res.status(200).json({ message: "User was found!", callsign: callsign});
+    for (const user of activeUsers.values()) {
+        if (user.username === callsign) {
+            res.status(200).json({ message: "User was found in active sessions" });
+            console.log("Was able to find active user session.");
+            return;
+        }
     }
+
+    console.log("Unable to find user in active user sessions.");
+    res.status(404).json({ error: "Callsign was not found in active users" });
 });
 
 app.get("/server/me", requireAuth, (req, res) => { // Gets the user.
@@ -293,7 +300,7 @@ app.post("/server/update-csv", requireAuth, (req, res) => { // Send a update csv
     }
 
     try {
-        await downloadAndRun(); // Will run the download and run function.
+        downloadAndRun(); // Will run the download and run function.
  
         res.status(200); // 200 if it works.
     } catch {
