@@ -1,0 +1,27 @@
+name: Feature Request
+description: Submit a feature request
+title: "[REQ]: "
+labels: ["request"]
+type: feature
+body:
+  - type: markdown
+    attributes:
+      value: "## Submit a Feature Request"
+  - type: markdown
+    attributes: 
+      value: |
+        Thanks for considering creating a feature request! Your feature request will be considered and may be implemented into the software. You can always view the roadmap to see if and where your feature request will be implemented
+  - type: textarea
+    id: request
+    attributes:
+      label: What could be added?
+      description: "Please describe, in detail, what feature you think the software needs to be more functional, clean, or ready for use"
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: How will this benefit users?
+      description: "Please describe how implementing this feature will benefit the users of the software. Any reason is helpful, including small ones that are QOL"
+    validations:
+      required: true
