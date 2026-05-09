@@ -1,0 +1,82 @@
+name: BUG REPORT
+description: Submit a bug report
+title: "[BUG]: "
+labels: ["bug"]
+type: bug
+body:
+  - type: markdown
+    attributes: 
+      value: "## Thanks for your bug report!"
+  - type: markdown
+    attributes:
+      value: | 
+        Submitting issues helps us keep track of what we need to fix and take care of, and helps the project remain functional!
+  - type: textarea
+    id: reportedissue
+    attributes:
+      label: What is the issue you encountered?
+      description: "Please describe the bug you encountered"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: "Please briefly outline the steps to reproduce the issue"
+  - type: dropdown
+    id: device
+    attributes:
+      label: What device were you using?
+      options:
+        - iPhone
+        - Android
+        - Laptop
+        - PC 
+        - Other
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: deviceother
+    attributes:
+      label: If other to the above, what device were you using?
+  - type: dropdown
+    id: os
+    attributes:
+      label: What OS were you using?
+      options:
+        - Windows 10
+        - Windows 11
+        - Linux (including variants of)
+        - Apple OS
+        - Android
+        - Chromebook
+        - Macbook
+        - Other
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: osother
+    attributes:
+      label: If other to the above, what OS were you using?
+  - type: dropdown
+    id: browser
+    attributes:
+      label: What browser were you using?
+      options:
+        - Google Chrome
+        - Microsoft Edge
+        - Safari
+        - Firefox
+        - Brave
+        - Vivaldi
+        - Other
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: browsertypeother
+    attributes:
+      label: If you answered other to the above, specify what browser you were using (including version)
+

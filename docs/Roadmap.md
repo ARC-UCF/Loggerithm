@@ -2,6 +2,8 @@
 
 This roadmap lays out the the planned content and updates to the site as it develops. This roadmap will be changed as needed. 
 
+This roadmap is not comprehensive, to the extent is does not account for minor bug fixes and changes that may happen with the progression of the software. More releases will be planned as more features are considered to be added to the software.
+
 ## v0.1.0 
 
 * Base functionality
@@ -13,11 +15,12 @@ This roadmap lays out the the planned content and updates to the site as it deve
 
 * Basic updates to dashboard, such as adding recent QSOs
 * Client-side feedback for POTAs and other logs
+* Allow filtering of logs that are submitted
 
 ## v0.3.0
 
-* Further expansion, add active operators.
-* Possible changes to help pages
+* Further expansion, add active operators
+* Possible changes to help pages (ie. condensing them)
 
 ## v0.4.0 
 

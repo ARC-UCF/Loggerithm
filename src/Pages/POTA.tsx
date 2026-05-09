@@ -4,60 +4,61 @@ import { useToast } from "../Components/ToastProvider";
 import { useRef } from "react";
 
 export default function POTA( { setView }: { setView: (v: "home" | "pota" | "field" | "normal") => void }) {
-    const { notify } = useToast();
+    const { notify } = useToast(); // Notifier
     const formRef = useRef(null);
 
     async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
         console.log("Form submitted");
 
-        e.preventDefault();
+        e.preventDefault(); // Prevent defaults
 
         const form = e.currentTarget;
-        const data = new FormData(form);
+        const data = new FormData(form); // Get form data
 
-        const contact = (data.get("contact") as string).trim().toUpperCase();
-        const frequency = (data.get("frequency") as string).trim().toUpperCase();
-        const contactparks = (data.get("parks") as string)?.trim().toUpperCase();
-        const rstsent = (data.get("txstrength") as string).trim().toUpperCase();
-        const rstreceived = (data.get("rxstrength") as string).trim().toUpperCase();
-        const state = (data.get("state") as string).trim().toUpperCase();
-        const comments = data.get("comments");
+        const contact = (data.get("contact") as string).trim().toUpperCase(); // Contact call, force uppercase
+        const frequency = (data.get("frequency") as string).trim().toUpperCase(); // Frequency, should be numbers, but force uppercase
+        const contactparks = (data.get("parks") as string)?.trim().toUpperCase(); // Parks, split by commas, force uppercase for beginning parts (eg. where it's US-4630, so force us-4630 to US-4630)
+        const rstsent = (data.get("txstrength") as string).trim().toUpperCase(); // Should be numbers, force uppercase anyway
+        const rstreceived = (data.get("rxstrength") as string).trim().toUpperCase(); // Should be numbers, force uppercase anyway
+        const state = (data.get("state") as string).trim().toUpperCase(); // State, should be two letter identifier (eg. FL or KS)
+        const comments = data.get("comments"); // Comments, leave whitespace and capitalization alone
 
-        const load = {
-            callsign: localStorage.getItem("callsign"),
-            activations: localStorage.getItem("POTAs")?.toUpperCase(),
-            station: localStorage.getItem("behalfCall"),
-            radio: localStorage.getItem("radio")?.toUpperCase(),
-            power: localStorage.getItem("TXPower"),
-            type: "pota",
-            contact: contact,
-            mode: localStorage.getItem("mode")?.toUpperCase(),
-            band: localStorage.getItem("band")?.toUpperCase(),
-            frequency: frequency,
-            contactparks: contactparks,
-            rstsent: rstsent,
-            rstreceive: rstreceived,
-            state: state,
-            comments: comments,
+        const load = { // Create packet for the server
+            callsign: localStorage.getItem("callsign"), // Client's callsign
+            activations: localStorage.getItem("POTAs")?.toUpperCase(), // Client's activated parks, will check serverside
+            station: localStorage.getItem("behalfCall"), // Client's station callsign, if any
+            radio: localStorage.getItem("radio")?.toUpperCase(), // Client's radio
+            power: localStorage.getItem("TXPower"), // Client's tx power
+            type: "pota", // Set log type to POTA
+            contact: contact, // Contact's callsign, as above
+            mode: localStorage.getItem("mode")?.toUpperCase(), // Client's mode of operation (eg. SSB)
+            band: localStorage.getItem("band")?.toUpperCase(), // Client's band of operation (eg. 20M)
+            frequency: frequency, // Frequency of contact
+            contactparks: contactparks, // Contact's parks, split by commas, will be checked on serverside
+            rstsent: rstsent, // Signal sent
+            rstreceive: rstreceived, // Signal received
+            state: state, // Two letter state identifier
+            comments: comments, // Comments
         }
 
-        console.log(rstsent, rstreceived);
+        console.log(rstsent, rstreceived); // Debug confirmation
 
         try {
-            const packet = await PostRequest("/submit-pota-log", load);
+            const packet = await PostRequest("/submit-pota-log", load); // Send packet to helper to send to server
 
-            if (!packet.ok) {
+            if (!packet.ok) { // If packet not ok, notify
                 notify(`An error occurred while submitting your log: ${packet.error}`, "error");
                 return;
             }
 
-            if (packet.status !== 200) {
+            if (packet.status !== 200) { // If server doesn't send 200, notify
                 notify(`An error occurred: ${packet.data.error}`, "error");
                 return;
             }
 
-            notify("Your log was successfully submitted", "success");
-        } catch (err: any) {
+            notify("Your log was successfully submitted", "success"); // Success
+            formRef.current.reset(); // Reset form for next contact
+        } catch (err: any) { // Catch errors
             notify(`Error: ${err}`, "error");
         }
     }
