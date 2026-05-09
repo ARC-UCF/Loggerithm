@@ -1,6 +1,66 @@
+import { useRef } from "react";
+import { useToast } from "../Components/ToastProvider";
+import { PostRequest } from "../utils/Requests";
+
 export default function FieldDay({ setView }: { setView: (v: "home" | "pota" | "field" | "normal") => void }) {
+    const { notify } = useToast();
+    const formRef = useRef(null);
+
+    async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        const form = e.currentTarget;
+        const data = new FormData(form)
+
+        const contact = (data.get("contactcall") as string).trim().toUpperCase();
+        const frequency = (data.get("confreq") as string).trim().toUpperCase();
+        const region = (data.get("conregion") as string).trim().toUpperCase();
+        const ops = (data.get("conop") as string).trim().toUpperCase();
+        const comments = data.get("comments") as string
+
+        const load = {
+            callsign: localStorage.getItem("callsign")?.toUpperCase(),
+            station: localStorage.getItem("behalfcall")?.toUpperCase(),
+            radio: localStorage.getItem("radio")?.toUpperCase(),
+            power: localStorage.getItem("TXPower"),
+            type: "field-day",
+            contact: contact,
+            mode: localStorage.getItem("mode")?.toUpperCase(),
+            band: localStorage.getItem("band")?.toUpperCase(),
+            frequency: frequency,
+            region: region,
+            ops: ops,
+            comments: comments,
+        }
+
+        console.log("Load created");
+        console.log(load);
+
+        try {
+            const packet = await PostRequest("/submit-field-day-log", load);
+
+            console.log(packet);
+
+            if (!packet.ok) {
+                notify(`An error occurred while submitting your log: ${packet.error}`, "error");
+                return;
+            }
+
+            if (packet.status !== 200) {
+                notify(`An error occurred while submitting your log: error ${packet.status} ${packet.data.error}`, "error");
+                return;
+            }
+
+            notify("Your log was sent successfully!", "success");
+            formRef.current.reset();
+        } catch (err: any) {
+            console.log(err);
+            notify(`An error occurred while sending your log: ${err.message}`, "error");
+        }
+    }
+
     return (
-        <form className="loginbox">
+        <form className="loginbox" ref={formRef}>
             <div className="logintop">
                 <h1>Field Day Log</h1>
                 <div className="field">

@@ -59,7 +59,6 @@ export default function NormalLog({ setView }: { setView: (v: "home" | "pota" | 
         } catch(err: any) {
             console.log(err); // Debug
             notify(`An error occurred: ${err.message}`, "error"); // Notify of an error, include the error here, too.
-            return;
         }
     }
 
