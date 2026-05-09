@@ -1,5 +1,17 @@
 # Loggerithm v0.1.0
 
+## Contents
+
+- [Setup Guide](#setup)
+    - [Required](#required)
+- [Project Information](#project-information)
+    - [Archive](#-archive)
+    - [CSS](#css)
+- [Backend](#backend)
+    - [API](#api)
+- [License](#license)
+
+
 This project is a website designed to be hosted on a small Pi server for field operations. This is developed for the Amateur Radio Club at the University of Central Florida. This will include a small backend, which is noted in the `/backend` portion of this, which should be used on your Pi server. The pi server needs to have a local WiFi connection to communicate to devices who can upload, download, and edit logs on the backend. The backend will serve all information regarding the logs and related information.
 
 The backend uses Nodejs and Expressjs to function. It also relies on ports for the API calls. Since this is somewhat dynamic, React is used, at least for future versions of this project. Websockets will eventually be implemented for live updating.
@@ -15,7 +27,9 @@ Users are required to enter their personal callsign to use any of the logging fe
 >
 > v0.1.0 is not yet released. Frequent updates are occurring to this project. Please refer to the releases section of this GitHub for any official releases.
 
-## REQUIRED
+## SETUP
+
+### REQUIRED
 
 You must make a .env file on the backend with the name `secrets.env`. Inside of it, you must create a variable called `SESSIONSECRET`, and you must create a token for that session secret. 
 
@@ -27,11 +41,13 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 This is secure enough for the fact that this is meant to be locally hosted on your server. 
 
-## !! Archive
+## Project Information
+
+### !! Archive
 
 The `archive` folder located in `src` is components and features which were developed for a different idea of the project, but kept as they may become useful later, or are good references. Feel free to look at the code in that folder.
 
-## CSS 
+### CSS 
 
 All CSS is dictated by app.scss. All variables which are used are located in variables.scss. 
 
@@ -44,3 +60,7 @@ The current plan is to implement Websockets to the backend to make it update liv
 ### API
 
 API documentation has been moved to `/docs/API.md`. Please go there to review API information.
+
+## License
+
+Please refer to `LICENSE.md` for the license for this project.
