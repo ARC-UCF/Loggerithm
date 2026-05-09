@@ -10,6 +10,23 @@ The `App.tsx` is the route manager, which allows linking to different pages on t
 
 Users are required to enter their personal callsign to use any of the logging features. This is also required so that the user can be synced to the server. The user's callsign, plus operator state, is saved to localstorage and is thus persistent to their device. As long as you don't switch devices, whatever you inputted will remain the same. And as long as the domain does not change.
 
+> [!NOTE]
+> This project is in development, and subject to change.
+>
+> v0.1.0 is not yet released. Frequent updates are occurring to this project. Please refer to the releases section of this GitHub for any official releases.
+
+## REQUIRED
+
+You must make a .env file on the backend with the name `secrets.env`. Inside of it, you must create a variable called `SESSIONSECRET`, and you must create a token for that session secret. 
+
+You can create a simple token for your backend by running this in your command line and copy/pasting the following output into your .env file:
+
+```js
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+This is secure enough for the fact that this is meant to be locally hosted on your server. 
+
 ## !! Archive
 
 The `archive` folder located in `src` is components and features which were developed for a different idea of the project, but kept as they may become useful later, or are good references. Feel free to look at the code in that folder.
@@ -26,46 +43,4 @@ The current plan is to implement Websockets to the backend to make it update liv
 
 ### API
 
-The frontend components can send requests (such as POST and GET) to the backend via the `Requests.tsx` utility. This was made to streamline the process of getting data from the backend. 
-
-Use `PostRequest` for post requests to the backend, which will return an `err` if an error occurs or will return the response and data if the request is ok. It is recommended to wrap the function itself in a `try` even though there is a `try` implemented into the function itself, in the case the function errors.
-
-You can also use `getRequest` to make a get request to the backend, which functions the same way as `PostRequest`. Again, wrap the function in a `try` to catch errors. An example is provided in `CallsignPrompt.tsx`.
-
-To show any API errors to the user, use the `{ notify }` function of the `useToast()` component provided by the `ToastProvider`. 
-
-**Return**
-
-When you use **PostRequest** or **getRequest**, the information will come back with three fields:
-
-* `ok: false || true`
-* `status: integer`
-* `data: {}`
-
-If `ok` is false then an error occurred while attempting to run the code, and it didn't execute correctly.
-
-`status` is based off of the status the server sends back. `status` will be 0 **IF** `ok` is false. Which, again, will only occur if there was an error in executing the code.
-
-Therefore, use `ok` to make sure the process sent correctly and returned correctly, then use `status` to determine the state of the request. 
-
-`data` will contain an `error` message if there is any sort of error sent back by the server, otherwise it will contain `message` for successful requests, as well as other data depending on the request.
-
-Using `data` currently causes an error with the TypeScript, and it's currently best to just ignore it, as it does not cause the code to break.
-
-**GET Requests**
-
-* `/server/check-call?callsign=${callsign}` - GET - Check Callsign - Check the state of the callsign on the backend.
-* `/server/park?park=${park}` - GET - Get the information related to a POTA park using the park's identifier (eg. US-4036).
-* `/server/get-ver` - GET - Get the current version of Loggerithm.
-* `/server/me` - GET - Returns the client's user information on the server.
-* `/server/operator` - GET - Returns the client's operator state, `null` if none exists.
-* `/server/operators` - GET - Returns all active operators.
-* `/server/active-users` - GET - Returns all active users.
-
-
-**POST Requests**
-
-* `/server/login` - POST - Params: `{ call: string }` - Logs the user into the server, which records them as active. Also grants the user a cookie for a session id on the server to recognize the client and grant access to requests which require authentication.
-* `/server/loguout` - POST - No params - Logs the user out of their session by deleting their active session, which removes them from active users and active operators, as well as deletes their cookie.
-* `/server/update-operator-state` - POST - Params: `{ mode: string, band: string, radio: string, power: string, active: "yes" || "no"}` - Update the client's operator state on the server, to reflect it to the other clients.
-* `/server/submit-pota-log` - POST - Params: `{ callsign: string, station: string, power: string, type: "pota" || "normal" || "field day", contact: string, frequency: string, parks?: string, rstsent: string, rstsent: string, state: string, comments: string }` - Submit a POTA log to the backend. Will return 400 if `type` is not `pota`.
+API documentation has been moved to `/docs/API.md`. Please go there to review API information.
