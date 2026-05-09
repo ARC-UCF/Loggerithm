@@ -2,6 +2,7 @@
 
 ## Contents
 
+- [Summary](#summary)
 - [Setup Guide](#setup)
     - [Required](#required)
 - [Project Information](#project-information)
@@ -11,6 +12,7 @@
     - [API](#api)
 - [License](#license)
 
+## Summary
 
 This project is a website designed to be hosted on a small Pi server for field operations. This is developed for the Amateur Radio Club at the University of Central Florida. This will include a small backend, which is noted in the `/backend` portion of this, which should be used on your Pi server. The pi server needs to have a local WiFi connection to communicate to devices who can upload, download, and edit logs on the backend. The backend will serve all information regarding the logs and related information.
 
