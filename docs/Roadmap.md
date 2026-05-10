@@ -51,4 +51,9 @@ This roadmap is not comprehensive, to the extent is does not account for minor b
 - [ ] Map locally stored on server
 - [ ] Using map to depict locations where contacts have been made, for visualization purposes
 
+## v1.4.0
+
+- [ ] Forecasted band conditions with weather forecasts
+- [ ] Extra weather condition forecasts
+
 **More features need to be planned to expand the planned releases on this document.**
