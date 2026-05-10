@@ -16,7 +16,8 @@ This roadmap is not comprehensive, to the extent is does not account for minor b
 - [ ] Basic updates to dashboard, such as adding recent QSOs
 - [ ] Client-side feedback for POTAs and other logs
 - [ ] Allow filtering of logs that are submitted
-
+- [ ] Extra verification of submitted fields (ie. operators, frequencies, etc. to prevent mismatching)
+ 
 ## v0.3.0
 
 - [ ] Further expansion, add active operators
