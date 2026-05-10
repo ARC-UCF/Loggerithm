@@ -125,3 +125,59 @@ export function writePOTALog(callsign, activations, station, power, radio, type,
 
     console.log("Finished write");
 }
+
+export function writeNormalLog(callsign, station, radio, power, type, contact, mode, band, frequency, rstsent, rstreceive, comments) {
+    if (!started) {
+        startup();
+    }
+
+    console.log("Writing to db");
+
+    db.prepare(`
+        INSERT INTO logs (operator, station, contact, power, frequency, band, mode, rst_sent, rst_received, radio, type, comments)
+        VALUES (
+            ?,
+            COALESCE(?, 'none'),
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            COALESCE(?, 'no comments')
+        )    
+    `).run(callsign, station, contact, power, frequency, band, mode, rstsent, rstreceive, radio, type, comments);
+
+    console.log("Finished write");
+}
+
+export function writeFieldDayLog(callsign, station, radio, power, type, contact, mode, band, frequency, region, ops, comments) {
+    if (!started) {
+        startup();
+    }
+
+    console.log("Writing to db");
+
+    db.prepare(`
+       INSERT INTO logs (operator, station, contact, contact_ops, power, region, frequency, band, mode, radio, type, comments)
+       VALUES (
+        ?,
+        COALESCE(?, 'none'),
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        COALESCE(?, 'no comments')
+       ) 
+    `).run(callsign, station, contact, ops, power, region, frequency, band, mode, radio, type, comments);
+
+    console.log("Finished write");
+}

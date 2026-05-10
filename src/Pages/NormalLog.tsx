@@ -15,7 +15,7 @@ export default function NormalLog({ setView }: { setView: (v: "home" | "pota" | 
         const data = new FormData(form); // Get form data
 
         const contact = (data.get("contactcall") as string).trim().toUpperCase(); // Contact call, force uppercase
-        const frequency = (data.get("frequency") as string).trim().toUpperCase(); // Freqency, should be numbers, but force uppercase
+        const frequency = (data.get("confreq") as string).trim().toUpperCase(); // Freqency, should be numbers, but force uppercase
         const rstsent = (data.get("txsg") as string).trim().toUpperCase(); // Should be numbers, but force uppercase
         const rstreceive = (data.get("rxsg") as string).trim().toUpperCase(); // Should be numbers, but force uppercase
         const comments = data.get("comments") as string; // Leave comments alone, include whitespace, include whatever capitalization there is.

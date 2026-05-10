@@ -60,7 +60,7 @@ export default function FieldDay({ setView }: { setView: (v: "home" | "pota" | "
     }
 
     return (
-        <form className="loginbox" ref={formRef}>
+        <form className="loginbox" ref={formRef} onSubmit={handleSubmit}>
             <div className="logintop">
                 <h1>Field Day Log</h1>
                 <div className="field">

@@ -9,7 +9,7 @@ import fs from "fs";
 import path from "path";
 import https from "https";
 import { fileURLToPath } from "url";
-import { writePOTALog } from "./database/data.js";
+import { writeFieldDayLog, writeNormalLog, writePOTALog } from "./database/data.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -316,6 +316,92 @@ app.post("/server/submit-pota-log", requireAuth, (req, res) => { // Submit a POT
     writePOTALog(callsign, activations, station, power, radio, type, contact, mode, band, frequency, contactparks, rstsent, rstreceive, state, comments);
 
     res.status(200).json({ message: "Uploaded log successfully" });
+});
+
+app.post("/server/submit-normal-log", requireAuth, (req, res) => {
+    const { callsign, station, radio, power, type, contact, mode, band, frequency, rstsent, rstreceive, comments } = req.body;
+
+    if (!type || type !== "normal") {
+        res.status(400).json({ error: "Type is not valid for this log submission" });
+        return;
+    }
+
+    if (!power) {
+        res.status(400).json({ error: "TX power must be provided" });
+        return;
+    }
+
+    if (!contact) {
+        res.status(400).json({ error: "A contact callsign must be added" });
+        return;
+    }
+
+    if (!frequency) {
+        res.status(400).json({ error: "You must provide a frequency for this contact" });
+        return;
+    }
+
+    if (!rstsent) {
+        res.status(400).json({ error: "You must provide a signal report sent" });
+        return;
+    }
+
+    if (!rstreceive) {
+        res.status(400).json({ error: "You must provide a signal report receieved" });
+        return;
+    }
+
+    writeNormalLog(callsign, station, radio, power, type, contact, mode, band, frequency, rstsent, rstreceive, comments);
+
+    res.status(200).json({ message: "Successfully wrote log" });
+});
+
+app.post("/server/submit-field-day-log", requireAuth, (req, res) => {
+    const { callsign, station, radio, power, type, contact, mode, band, frequency, region, ops, comments } = req.body;
+
+    if (!type || type !== "field-day") {
+        res.status(400).json({ error: "Invalid log submission type for this log" });
+        return;
+    }
+
+    if (!power) {
+        res.status(400).json({ error: "TX power must be provided" });
+        return;
+    }
+
+    if (!contact) {
+        res.status(400).json({ error: "A contact callsign must be added" });
+        return;
+    }
+
+    if (!frequency) {
+        res.status(400).json({ error: "You must provide a frequency for this contact" });
+        return;
+    }
+
+    if (!mode) {
+        res.status(400).json({ error: "You must provide a mode for this contact" });
+        return;
+    }
+
+    if (!band) {
+        res.status(400).json({ error: "You must provide a valid band type for this contact" });
+        return;
+    }
+
+    if (!region) {
+        res.status(400).json({ error: "You must provide a region for this contact" });
+        return;
+    }
+
+    if (!ops) {
+        res.status(400).json({ error: "You must provide the number of operators for this contact" });
+        return;
+    }
+
+    writeFieldDayLog(callsign, station, radio, power, type, contact, mode, band, frequency, region, ops, comments);
+
+    res.status(200).json({ message: "Successfully submitted your log" });
 });
 
 app.post("/server/update-csv", requireAuth, (req, res) => { // Send a update csv request to the server.
