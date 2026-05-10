@@ -33,6 +33,7 @@ This roadmap is not comprehensive, to the extent is does not account for minor b
 - [ ] Overhaul backend API requests to utilize websockets
 - [ ] Live operator updating on dashboard
 - [ ] Live QSO logging on dashboard
+- [ ] Aiming to complete documentation by this version
 
 ## v1.1.0
 
@@ -44,5 +45,10 @@ This roadmap is not comprehensive, to the extent is does not account for minor b
 
 - [ ] Frontend UI changes
 - [ ] Multi-device login compatibility(?)
+
+## v1.3.0
+
+- [ ] Map locally stored on server
+- [ ] Using map to depict locations where contacts have been made, for visualization purposes
 
 **More features need to be planned to expand the planned releases on this document.**
