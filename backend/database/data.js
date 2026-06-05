@@ -181,3 +181,14 @@ export function writeFieldDayLog(callsign, station, radio, power, type, contact,
 
     console.log("Finished write");
 }
+
+export function getLogs(pageSize) {
+    console.log("Fetching logs");
+
+    db.prepare(`
+        SELECT *
+        FROM logs
+        ORDER BY logged DESC
+        LIMIT ${pageSize} OFFSET ${pageSize}
+    `)
+}
