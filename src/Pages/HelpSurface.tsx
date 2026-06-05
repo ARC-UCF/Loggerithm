@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { hIndex } from "./HelpIndex";
 import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 import Pagination from "../Components/Pagination";
+import ScrollToTop from "../Components/ScrollToTop";
 
 export default function HelpSurface() {
     UpdatePageTitle("Help | Loggerithm");
+    ScrollToTop();
 
     const [query, setQuery] = useState("");
     const navigate = useNavigate();

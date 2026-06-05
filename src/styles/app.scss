@@ -561,6 +561,12 @@ footer {
         letter-spacing: 0.03em;
     }
 
+    h2 {
+        color: variables.$text-primary;
+        font-size: 1.5rem;
+        letter-spacing: 0.03em;
+    }
+
     p {
         color: variables.$text-primary;
         font-size: 1.1rem;
@@ -583,6 +589,47 @@ footer {
         }
     }
 
+    .filterssection {
+        background: variables.$gray-medium;
+        width: 95%;
+        padding: 0.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        border-radius: 6px;
+        gap: 1rem;
+        align-items: center;
+
+        .filtersarea {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+            width: 100%;
+            gap: 1rem;
+        }
+
+        .filterselection {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        button {
+            width: 50%;
+            height: 30px;
+            border-radius: 100px;
+            background-color: variables.$gray-deepest;
+            border: 1px solid variables.$gold-border-hi;
+            color: variables.$text-primary;
+            font-size: 14px;
+            font-family: var(--font-sans);
+            transition: 0.15s ease;
+        }
+    
+        button:hover {
+            background-color: variables.$gold-accent;
+            color: variables.$gray-deepest;
+        }
+    }
+
     .auditholder {
         background: variables.$gray-medium;
         width: 100%;
@@ -590,7 +637,7 @@ footer {
         display: grid;
         gap: 1rem;
         border-radius: 6px;
-        grid-template-areas: repeat(auto-fit, minmax(95%, 1fr));
+        grid-template-rows: repeat(auto-fit, minmax(95%, 1fr));
 
         .auditcard {
             background: variables.$gray-deepest;

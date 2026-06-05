@@ -26,7 +26,7 @@ export default function Navbar() {
                 <li><a><Link to="/log">Log</Link></a></li>
                 <li><a><Link to="/session">Session</Link></a></li>
                 <li><a onClick={() => openModal("operator")}>Operator</a></li>
-                <li><a><Link to="/audit-logs">Audit Logs</Link></a></li>
+                <li><a><Link to="/contacts">Contacts</Link></a></li>
                 <li><a><Link to="/users">Users In Session</Link></a></li>
                 <li><a><Link to="/action-logs">Logs</Link></a></li>
             </ul>

@@ -7,7 +7,7 @@ import { AppProvider } from "../Components/AppProvider.tsx";
 import { ToastProvider } from "../Components/ToastProvider.tsx";
 import { ModalProvider } from "../modals/ModalProvider.tsx";
 import Logger from "./Logger.tsx";
-import AuditLogs from "./AuditLogs.tsx";
+import Contacts from "./Contacts.tsx";
 import HelpSurface from "./HelpSurface.tsx";
 import HelpLayout from "../Layouts/HelpLayout.tsx";
 import SubmitALog from "./HelpPages/SubmitALog.tsx";
@@ -32,7 +32,7 @@ export default function App() {
                                 <Route element={<Layout />}>
                                     <Route path="/session" element={<SessionFeatures />} />
                                     <Route path="/log" element={<Logger />} />
-                                    <Route path="/audit-logs" element={<AuditLogs />} />
+                                    <Route path="/contacts" element={<Contacts />} />
                                 </Route>
                                 <Route path="/help" element={<HelpLayout />}>
                                     <Route index element={<HelpSurface />} />
