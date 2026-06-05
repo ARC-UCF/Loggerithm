@@ -23,7 +23,7 @@ This roadmap is not comprehensive, to the extent is does not account for minor b
 - [ ] Further expansion, add active operators
 - [ ] Possible changes to help pages (ie. condensing them)
 
-## v01.3.0 
+## v1.3.0 
 
 - [ ] Add weather components to dashboard and a way to update them
 - [ ] CSV park matching and live update

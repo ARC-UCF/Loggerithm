@@ -20,7 +20,7 @@ The backend uses Nodejs and Expressjs to function. It also relies on ports for t
 
 Providers (such as the ModalProvider, AppProvider, and ToastProvider) are used to create either global variables or components which can be displayed above any other element on any of the pages, hence why their z-indexes are 1000 for the ModalProvider and 1200 for the ToastProvider. Both are ui contexts which provide information to the frontend user and allow the user to submit information (such as setting their global information, ie. station callsign).
 
-The `App.tsx` is the route manager, which allows linking to different pages on the site. The logging page uses a setview state to display pages within the page, without redirecting you to a different page. This is primarily because that would get annoying. 
+The `App.tsx` is the route manager, which allows linking to different pages on the site. The logging page uses a setview state to display pages within the page, without redirecting you to a different page. This is primarily because that would get annoying. Any pages which set component state will not save upon refresh, this is something you should be aware of.
 
 Users are required to enter their personal callsign to use any of the logging features. This is also required so that the user can be synced to the server. The user's callsign, plus operator state, is saved to localstorage and is thus persistent to their device. As long as you don't switch devices, whatever you inputted will remain the same. And as long as the domain does not change.
 
