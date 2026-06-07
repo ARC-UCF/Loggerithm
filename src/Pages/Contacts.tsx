@@ -71,7 +71,7 @@ export default function AuditLogs() {
             }
 
             if (packet.status !== 200) {
-                notify(`An error occurred while trying to get logs: ${packet.error}`, "error");
+                notify(`An error occurred while trying to get logs: ${packet.data.error}`, "error");
                 return;
             }
 
