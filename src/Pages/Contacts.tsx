@@ -36,6 +36,14 @@ export default function AuditLogs() {
         type: {
             enabled: false,
             value: "",
+        },
+        startdate: {
+            enabled: false,
+            value: "",
+        },
+        enddate: {
+            enabled: false,
+            value: "",
         }
     })
 
@@ -194,13 +202,61 @@ export default function AuditLogs() {
                             ...filters,
                             type: {
                                 ...filters.type,
-                                value: e.target.value
-                            }
+                                value: e.target.value,
+                            },
                         })}>
                             <option value="normal">Normal</option>
                             <option value="pota">POTA</option>
                             <option value="field day">Field Day</option>
                         </select>
+                    </div>
+                    <div className="filterselection">
+                        <FilterField
+                            label="Start Date"
+                            enabled={filters.startdate.enabled}
+                            onEnabledChange={(enabled) => setFilters({
+                                ...filters,
+                                startdate: {
+                                    ...filters.startdate,
+                                    enabled,
+                                },
+                            })}
+                        />
+                        <input type="datetime-local"
+                            value={filters.startdate.value}
+                            disabled={!filters.startdate.enabled}
+                            onChange={(e) => setFilters({
+                                ...filters,
+                                startdate: {
+                                    ...filters.startdate,
+                                    value: e.target.value,
+                                },
+                            })}
+                        />
+                    </div>
+                    <div className="filterselection">
+                        <FilterField 
+                            label="End Date"
+                            enabled={filters.enddate.enabled}
+                            onEnabledChange={(enabled) => setFilters({
+                                ...filters,
+                                enddate: {
+                                    ...filters.enddate,
+                                    enabled,
+                                },
+                            })}
+                        />
+                        <input type="datetime-local"
+                            value={filters.enddate.value}
+                            disabled={!filters.enddate.enabled}
+                            onChange={(e) => setFilters({
+                                ...filters,
+                                enddate: {
+                                    ...filters.enddate,
+                                    value: e.target.value,
+                                },
+                            })}
+                        />
                     </div>
                 </div>
                 <button>Apply</button>
