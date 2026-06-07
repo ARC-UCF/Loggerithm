@@ -637,7 +637,7 @@ footer {
         display: grid;
         gap: 1rem;
         border-radius: 6px;
-        grid-template-rows: repeat(auto-fit, minmax(95%, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(95%, 1fr));
 
         .auditcard {
             background: variables.$gray-deepest;

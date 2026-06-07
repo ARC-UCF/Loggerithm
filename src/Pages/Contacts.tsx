@@ -2,11 +2,44 @@ import { useSearchParams } from "react-router-dom";
 import ScrollToTop from "../Components/ScrollToTop";
 import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 import { FilterField } from "../Components/FilterComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getRequest } from "../utils/Requests";
 import { useToast } from "../Components/ToastProvider";
 
 // This page and it's css will probably undergo revamp at some point in the future. For now, this is what we're using.
+
+type Contact = {
+    id: number;
+    operator: string;
+    station: string;
+    park: string | null;
+    contact: string;
+    contact_ops: string | null;
+    power: string;
+    state: string | null;
+    region: string | null;
+    contact_parks: string | null;
+    frequency: string;
+    band: string;
+    mode: string;
+    rst_sent: string | null;
+    rst_received: string | null;
+    radio: string | null;
+    type: "normal" | "field-day" | "pota";
+    comments: string | null;
+    logged: number;
+    lastupdated: number | null;
+}
+
+type response = {
+    contacts: Contact[];
+    pagination: {
+        page: number;
+        pageSize: number;
+        totalPages: number;
+        totalRecords: number;
+    }
+}
 
 export default function AuditLogs() {
     UpdatePageTitle("Contacts | Loggerithm");
@@ -14,6 +47,8 @@ export default function AuditLogs() {
 
     const [, setSearchParams] = useSearchParams();
     const { notify } = useToast();
+    const [contacts, setContacts] = useState<Contact[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const [filters, setFilters] = useState({
         callsign: {
@@ -50,7 +85,15 @@ export default function AuditLogs() {
         }
     })
 
+    function displayLogs(res: response) {
+        console.log(res);
+        setContacts(res.contacts);
+
+        setLoading(false);
+    }
+
     async function onApply() {
+        setLoading(true);
         const params = new URLSearchParams;
 
         for (const [key, filter] of Object.entries(filters)) {
@@ -63,7 +106,7 @@ export default function AuditLogs() {
         setSearchParams(params);
 
         try {
-            const packet = await getRequest(`/get-logs${params.toString()}`);
+            const packet = await getRequest(`/contacts?${params.toString()}`);
 
             if (!packet.ok) {
                 notify(`An error occurred while trying to get logs: ${packet.error}`, "error");
@@ -75,7 +118,10 @@ export default function AuditLogs() {
                 return;
             }
 
+            console.log(packet);
+
             notify(`Request was successful`, "success");
+            displayLogs(packet.data);
         } catch (err: any) {
             notify(`Error: ${err}`, "error");
         }
@@ -88,8 +134,6 @@ export default function AuditLogs() {
             <p>Filter by date and time, callsign, station call, log type (eg. Field Day, POTA, normal), by contact callsign, mode, tx power, and park id.</p>
             <p>Filters apply to downloads, meaning you can download logs by day, by log type, contact callsign, by callsign, etc.</p>
             <p>You may only edit logs that you have submitted under your callsign.</p>
-            <p><em className="goldtext">Gold callsigns</em> are those within the club, while <em className="redtext">red callsigns</em> are not recognized in the club.</p>
-            <p><em className="greentext">Green timestamps</em> are within the past 15 minutes, <em className="goldtext">yellow timestamps</em> are within the last 30, and <em className="redtext">red timestamps</em> are any older than 30 minutes.</p>
             <p><em className="bluetext">Blue contact types</em> are for normal logs, <em className="greentext">green contact types</em> are for POTAs, and <em className="redtext">red contact types</em> are for field days.</p>
             <div className="filterssection"> {/* Advanced filters section, useful for filtering. */}
                 <h2>Filters</h2>
@@ -241,7 +285,7 @@ export default function AuditLogs() {
                         })}>
                             <option value="normal">Normal</option>
                             <option value="pota">POTA</option>
-                            <option value="field day">Field Day</option>
+                            <option value="field-day">Field Day</option>
                         </select>
                     </div>
                     <div className="filterselection">
@@ -296,36 +340,81 @@ export default function AuditLogs() {
                 <button onClick={onApply}>Apply</button>
             </div>
             <div className="auditholder">
-                <div className="auditcard">
-                    <div className="loginfoheader">
-                        <h2>K4UCF</h2>
+                {contacts.map((contact) => (
+                    <div key={contact.id} className="auditcard">
+                        <div className="loginfoheader">
+                            <h2>{contact.contact}</h2>
+                        </div>
+                        <div className="loginfobody">
+                            <div className="box">
+                                <p><b>Mode:</b> {contact.mode}</p>
+                            </div>
+                            <div className="box">
+                                <p><b>Band:</b> {contact.band}</p>
+                            </div>
+                            {contact.rst_sent && 
+                                <div className="box">
+                                    <p><b>Signal Report Sent:</b> {contact.rst_sent}</p>
+                                </div>
+                            }
+                            {contact.rst_received && 
+                                <div className="box">
+                                    <p><b>Signal Report Received:</b> {contact.rst_received}</p>
+                                </div>
+                            }
+                            {contact.contact_ops &&
+                            <div className="box">
+                                <p><b>Contact Operators:</b> {contact.contact_ops}</p>
+                            </div>
+                            }
+                            {contact.park && 
+                            <div className="box">
+                                <p><b>Operated Park:</b> {contact.park}</p>
+                            </div>
+                            }
+                            {contact.contact_parks &&
+                            <div className="box">
+                                <p><b>Contact Parks:</b> {contact.contact_parks}</p>
+                            </div>
+                            }
+                            {contact.region &&
+                            <div className="box">
+                                <p><b>Contact Region:</b> {contact.region}</p>
+                            </div>
+                            }
+                            {contact.state &&
+                            <div className="box">
+                                <p><b>State:</b> {contact.state}</p>
+                            </div>
+                            }
+                            <div className="box">
+                                <p><b>Frequency:</b> {contact.frequency}</p>
+                            </div>
+                            <div className="box">
+                                <p><b>Power:</b> {contact.power}W</p>
+                            </div>
+                            <div className="box">
+                                <p><b>Radio:</b> {contact.radio ? contact.radio : "No radio was logged"}</p>
+                            </div>
+                            <div className="box">
+                                <p><b>Comments:</b> {contact.comments ? contact.comments : "No comments were added"}</p>
+                            </div>
+                        </div>
+                        <div className="loginfofooter">
+                            <div className="audittag audittag--gold">{contact.operator}</div>
+                            <div className="audittag audittag--green">{new Date(contact.logged * 1000).toLocaleString()}</div>
+                            {contact.type === "field-day" &&
+                            <div className="audittag audittag--red">Field Day</div>
+                            }
+                            {contact.type === "normal" &&
+                            <div className="audittag audittag--blue">Normal Log</div>
+                            }
+                            {contact.type === "pota" &&
+                            <div className="audittag audittag--green">POTA</div>
+                            }
+                        </div>
                     </div>
-                    <div className="loginfobody">
-                        <div className="box">
-                            <p><b>Mode:</b> FT8</p>
-                        </div>
-                        <div className="box">
-                            <p><b>Band:</b> 40m</p>
-                        </div>
-                        <div className="box">
-                            <p><b>Signal Report Sent:</b> 59</p>
-                        </div>
-                        <div className="box">
-                            <p><b>Signal Report Received:</b> 59</p>
-                        </div>
-                        <div className="box">
-                            <p><b>Frequency:</b> 7.300</p>
-                        </div>
-                        <div className="box">
-                            <p><b>Comments:</b> bro has an amateur extra before skye1</p>
-                        </div>
-                    </div>
-                    <div className="loginfofooter">
-                        <div className="audittag audittag--gold">K9SRH</div>
-                        <div className="audittag audittag--green">Submitted at 9:35 AM</div>
-                        <div className="audittag audittag--red">Field Day Contact</div>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );

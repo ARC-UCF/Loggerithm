@@ -1,4 +1,5 @@
 import Database from "better-sqlite3";
+import { start } from "node:repl";
 const db = new Database("database.db");
 
 let started = false;
@@ -182,13 +183,68 @@ export function writeFieldDayLog(callsign, station, radio, power, type, contact,
     console.log("Finished write");
 }
 
-export function getLogs(pageSize) {
-    console.log("Fetching logs");
+export function getLogs(callsign, operator, band, mode, park, type, startdate, enddate) {
+    const conditions = [];
+    const params = [];
 
-    db.prepare(`
-        SELECT *
-        FROM logs
-        ORDER BY logged DESC
-        LIMIT ${pageSize} OFFSET ${pageSize}
-    `)
+    if (callsign) {
+        conditions.push("station LIKE ?");
+        params.push(`%${callsign}`);
+    }
+
+    if (operator) {
+        conditions.push("operator LIKE ?");
+        params.push(`%${operator}`);
+    }
+
+    if (band) {
+        conditions.push("band = ?");
+        params.push(`${band}`);
+    }
+
+    if (mode) {
+        conditions.push("mode = ?");
+        params.push(`${mode}`);
+    }
+
+    if (park) {
+        conditions.push("park = ?");
+        params.push(`${park}`);
+        conditions.push("contact_parks = ?");
+        params.push(`${park}`);
+    }
+
+    if (type) {
+        conditions.push("type = ?");
+        params.push(`${type}`);
+    }
+
+    if (startdate) {
+        conditions.push("logged >= ?");
+        params.push(
+            Math.floor(new Date(startdate).getTime() / 1000)
+        );
+    }
+
+    if (enddate) {
+        conditions.push("logged <= ?");
+        params.push(
+            Math.floor(new Date(enddate).getTime() / 1000)
+        );
+    }
+
+    const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+
+    const query = 
+    `SELECT * FROM logs 
+    ${whereClause} 
+    ORDER BY logged DESC
+    LIMIT 50
+    OFFSET 0`;
+
+    const rows = db.prepare(query).all(...params);
+
+    console.log(rows);
+
+    return rows;
 }

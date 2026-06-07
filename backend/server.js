@@ -9,7 +9,7 @@ import fs from "fs";
 import path from "path";
 import https from "https";
 import { fileURLToPath } from "url";
-import { writeFieldDayLog, writeNormalLog, writePOTALog } from "./database/data.js";
+import { writeFieldDayLog, writeNormalLog, writePOTALog, getLogs } from "./database/data.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -246,6 +246,25 @@ app.post("/server/update-operator-state", requireAuth, (req, res) => { // This i
     operatorStates.set(req.sessionID, newState); // Set the operator in operator states.
 
     res.status(200).json({ message: "Successfully updated operator" }); // Confirm update.
+});
+
+app.get("/server/contacts", requireAuth, (req, res) => {
+    const {
+        callsign,
+        operator,
+        band,
+        mode,
+        park,
+        type,
+        startdate,
+        enddate
+    } = req.query;
+
+    console.log(req.query);
+
+    const logs = getLogs(callsign, operator, band, mode, park, type, startdate, enddate);
+
+    res.status(200).json({ contacts: logs});
 });
 
 app.get("/server/operator", requireAuth, (req, res) => { // Get the user's operator state. Will return null if none exists.
