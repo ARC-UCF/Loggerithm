@@ -6,13 +6,15 @@ This roadmap is not comprehensive, to the extent is does not account for minor b
 
 ## v1.0.0
 
-- [ ] Base functionality
-- [ ] Submit a log, read logs, edit logs, and download logs
-- [ ] Server-client requests completed
-- [ ] Basic help pages
+- [x] Base functionality
+- [x] Submit a log & read logs
+- [x] Server-client requests completed
+- [x] Basic help pages
 
 ## v1.1.0
 
+- [ ] Edit logs & download logs
+- [ ] Contact page pagination
 - [ ] Basic updates to dashboard, such as adding recent QSOs
 - [ ] Client-side feedback for POTAs and other logs
 - [ ] Allow filtering of logs that are submitted

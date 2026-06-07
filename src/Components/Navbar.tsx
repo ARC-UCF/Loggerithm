@@ -27,8 +27,6 @@ export default function Navbar() {
                 <li><Link to="/session">Session</Link></li>
                 <li><a onClick={() => openModal("operator")}>Operator</a></li>
                 <li><Link to="/contacts">Contacts</Link></li>
-                <li><Link to="/users">Users In Session</Link></li>
-                <li><Link to="/action-logs">Logs</Link></li>
             </ul>
             {call && <p>Hi, {call}!</p>}
             {!call && <p>Please login!</p>}

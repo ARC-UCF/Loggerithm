@@ -6,7 +6,6 @@ export default function Footer() {
             <ul className="footer-links">
                 <li><Link to="/help">Help</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
-                <li><Link to="/release-notes">Release Notes</Link></li>
             </ul>
         </footer>
     );

@@ -1,10 +1,11 @@
-# Loggerithm v0.1.0
+# Loggerithm v1.0.0
 
 ## Contents
 
 - [Summary](#summary)
 - [Setup Guide](#setup)
     - [Required](#required)
+    - [Separate the Backend and Frontend](#separate-the-backend-and-frontend)
 - [Project Information](#project-information)
     - [Archive](#-archive)
     - [CSS](#css)
@@ -27,7 +28,18 @@ Users are required to enter their personal callsign to use any of the logging fe
 > [!NOTE]
 > This project is in development, and subject to change.
 >
-> v0.1.0 is not yet released. Frequent updates are occurring to this project. Please refer to the releases section of this GitHub for any official releases.
+> v1.0.0 is released, but subsequent updates to this project will occur. Please use any updates this project makes.
+
+> [!WARNING]
+> This is a basic minimum-functioning project, as of v1.0.0
+>
+> This is NOT the final nor complete product, and this minimum product will be updated in the future to allow for more features.
+
+> [!WARNING]
+> Contacts does not currently have pagination.
+
+> [!WARNING]
+> Not all help pages are currently functional.
 
 ## SETUP
 
@@ -42,6 +54,17 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
 This is secure enough for the fact that this is meant to be locally hosted on your server. 
+
+### Separate the Backend and Frontend
+
+> [!IMPORTANT]
+> Please read this section and follow the instructions provided. It is essential to make the software work.
+
+You need to separate the backend files of this project from the frontend files. Place the backend and frontend files on your host device. You can deploy the website using `npm run build`, which will build the website. You will then need to initialize the server via `node server.js`. 
+
+Further, you will need to specify where the server is located. Change the port in both the backend and frontend. You can change the port in the backend by opening up `server.js` and scrolling to the bottom, where `app.listen` is located. Change the number to the port number you wish to use. You will need to do this in `vite.config.ts`, where you will change the port accordingly. Once this is completed, clients will be able to talk to the server.
+
+Remember to keep `secrets.env` with the backend.
 
 ## Project Information
 
