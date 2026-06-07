@@ -3,6 +3,8 @@ import ScrollToTop from "../Components/ScrollToTop";
 import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 import { FilterField } from "../Components/FilterComponent";
 import { useState } from "react";
+import { getRequest } from "../utils/Requests";
+import { useToast } from "../Components/ToastProvider";
 
 // This page and it's css will probably undergo revamp at some point in the future. For now, this is what we're using.
 
@@ -11,6 +13,7 @@ export default function AuditLogs() {
     ScrollToTop();
 
     const [, setSearchParams] = useSearchParams();
+    const { notify } = useToast();
 
     const [filters, setFilters] = useState({
         callsign: {
@@ -47,7 +50,7 @@ export default function AuditLogs() {
         }
     })
 
-    function onApply() {
+    async function onApply() {
         const params = new URLSearchParams;
 
         for (const [key, filter] of Object.entries(filters)) {
@@ -58,6 +61,24 @@ export default function AuditLogs() {
         }
 
         setSearchParams(params);
+
+        try {
+            const packet = await getRequest(`/get-logs${params.toString()}`);
+
+            if (!packet.ok) {
+                notify(`An error occurred while trying to get logs: ${packet.error}`, "error");
+                return;
+            }
+
+            if (packet.status !== 200) {
+                notify(`An error occurred while trying to get logs: ${packet.error}`, "error");
+                return;
+            }
+
+            notify(`Request was successful`, "success");
+        } catch (err: any) {
+            notify(`Error: ${err}`, "error");
+        }
     }
 
     return (
