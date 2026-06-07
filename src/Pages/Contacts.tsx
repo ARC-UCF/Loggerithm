@@ -10,7 +10,7 @@ export default function AuditLogs() {
     UpdatePageTitle("Contacts | Loggerithm");
     ScrollToTop();
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [, setSearchParams] = useSearchParams();
 
     const [filters, setFilters] = useState({
         callsign: {
@@ -46,6 +46,19 @@ export default function AuditLogs() {
             value: "",
         }
     })
+
+    function onApply() {
+        const params = new URLSearchParams;
+
+        for (const [key, filter] of Object.entries(filters)) {
+            if (filter.enabled && filter.value) {
+                console.log(key, filter.value);
+                params.set(key, String(filter.value))
+            }
+        }
+
+        setSearchParams(params);
+    }
 
     return (
         <div className="auditpage">
@@ -259,7 +272,7 @@ export default function AuditLogs() {
                         />
                     </div>
                 </div>
-                <button>Apply</button>
+                <button onClick={onApply}>Apply</button>
             </div>
             <div className="auditholder">
                 <div className="auditcard">

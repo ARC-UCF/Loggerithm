@@ -23,12 +23,12 @@ export default function Navbar() {
         <nav>
             <h2>Loggerithm</h2>
             <ul className="nav-links">
-                <li><a><Link to="/log">Log</Link></a></li>
-                <li><a><Link to="/session">Session</Link></a></li>
+                <li><Link to="/log">Log</Link></li>
+                <li><Link to="/session">Session</Link></li>
                 <li><a onClick={() => openModal("operator")}>Operator</a></li>
-                <li><a><Link to="/contacts">Contacts</Link></a></li>
-                <li><a><Link to="/users">Users In Session</Link></a></li>
-                <li><a><Link to="/action-logs">Logs</Link></a></li>
+                <li><Link to="/contacts">Contacts</Link></li>
+                <li><Link to="/users">Users In Session</Link></li>
+                <li><Link to="/action-logs">Logs</Link></li>
             </ul>
             {call && <p>Hi, {call}!</p>}
             {!call && <p>Please login!</p>}
