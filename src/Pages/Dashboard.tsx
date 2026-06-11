@@ -4,7 +4,7 @@ import POTA from "./POTA";
 import FieldDay from "./FieldDay";
 import NormalLog from "./NormalLog";
 
-export default function Logger() {
+export default function Dashboard() {
     const [view, setView] = useState<"home" | "pota" | "field" | "normal">("home");
 
     // We use the Activity component from React now to keep the component states the same when we switch between them. This prevents the erasure of form inputs when navigating the log page.
