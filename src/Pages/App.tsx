@@ -15,6 +15,7 @@ import HelpPageLayout from "../Layouts/HelpPageLayout.tsx";
 import NotFound from "../Components/NotFoundPages/NotFound.tsx";
 import SetupYourOperator from "./HelpPages/SetupYourOperator.tsx";
 import ContactPage from "./Contact.tsx";
+import ReleaseNotes from "./ReleaseNotes.tsx";
 
 export default function App() {
     return (
@@ -33,6 +34,7 @@ export default function App() {
                                     <Route path="/session" element={<SessionFeatures />} />
                                     <Route path="/dashboard" element={<Dashboard />} />
                                     <Route path="/contacts" element={<Contacts />} />
+                                    <Route path="/release-notes" element={<ReleaseNotes />}/>
                                 </Route>
                                 <Route path="/help" element={<HelpLayout />}>
                                     <Route index element={<HelpSurface />} />
