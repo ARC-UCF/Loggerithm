@@ -1,8 +1,6 @@
 import { useModal } from "../modals/ModalProvider";
-import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 
 export default function Home({ setView }: { setView: (v: "home" | "pota" | "field" | "normal") => void }) {
-    UpdatePageTitle("Log | Loggerithm")
     const { openModal } = useModal();
 
     {/* Current plan is to, at some point, overhaul this page (and a few others) to make them look even nicer and be more functional. */}

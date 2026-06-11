@@ -239,6 +239,9 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
                 </select>
             </div>
             <div className="field">
+                <button onClick={onClose}>Exit</button>
+            </div>
+            <div className="field">
                 <button type="submit">Submit</button>
             </div>
         </form>
