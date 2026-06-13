@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useToast } from "../Components/ToastProvider";
 import { PostRequest } from "../utils/Requests";
 
-export default function OperatorModal({ defaultValue, onClose }: { defaultValue?: string; onClose: () => void}) {
+export default function OperatorModal({ onClose }: { defaultValue?: string; onClose: () => void}) {
 
     const { notify } = useToast();
 

@@ -30,9 +30,6 @@ export default function HelpSurface() {
     const ITEMS_PER_PAGE = 50;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const params = new URLSearchParams(window.location.search);
-    const initialPage = Number(params.get("page")) || 1;
-
     const paginatedSource = filtered;
 
     const totalPages = Math.ceil(paginatedSource.length / ITEMS_PER_PAGE);

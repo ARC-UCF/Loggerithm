@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import ScrollToTop from "../Components/ScrollToTop";
 import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 import { FilterField } from "../Components/FilterComponent";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getRequest } from "../utils/Requests";
 import { useToast } from "../Components/ToastProvider";
 
