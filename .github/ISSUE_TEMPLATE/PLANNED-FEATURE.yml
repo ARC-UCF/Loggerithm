@@ -1,0 +1,71 @@
+name: Planned Feature
+description: Create an issue for a planned feature to be developed
+title: "[FEATURE]: "
+labels: ["enhancement"]
+type: feature
+body:
+  - type: markdown
+    attributes: 
+      value: "## New Feature"
+  - type: markdown
+    attributes:
+      value: | 
+        This documents a new feature which will be added to Loggerithm at some point in the future.
+  - type: textarea
+    id: featuredesc
+    attributes:
+      label: Describe the feature
+      description: "Please describe the feature which will be added"
+    validations:
+      required: true
+  - type: textarea
+    id: featurefunction
+    attributes:
+      label: Feature functionality
+      description: "Please describe the feature and how it will function, as well as how it'll help those using the software"
+  - type: dropdown
+    id: when
+    attributes:
+      label: When should this feature be implemented?
+      options:
+        - ASAP
+        - By the next release
+        - In the next few weeks
+        - In a couple of months
+        - In the future
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: What is the priority of this feature?
+      options:
+        - Very High, needs to be implemented soon
+        - High, should be implemented soon
+        - Medium, can wait a little while, but should be implemented soon
+        - Low, doesn't need immediate attention
+        - Very Low, can wait a little while
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: featuretype
+    attributes:
+      label: What is this feature's type?
+      options:
+        - Bug fix
+        - Requested Feature
+        - QOL Improvement
+        - Ui Change
+        - Backend Update
+        - Patch
+        - Miscellaneous
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: browsertypeother
+    attributes:
+      label: If you answered other to the above, specify what browser you were using (including version)
+

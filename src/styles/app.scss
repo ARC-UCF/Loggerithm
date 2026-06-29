@@ -117,26 +117,142 @@ footer {
 /* Contact stylesheets */
 
 .contacts-area {
-    max-width: 900px;
-    padding: 4rem 1rem 3rem;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+    width: 95%;
+    display: grid;
+    grid-template-columns: 400px 1fr 400px;
+    grid-template-rows: 60% 40%;
+    grid-template-areas: 
+    "leftbar topdash rightbar"
+    "leftbar bottomdash rightbar"
+    ;
+    height: 100vh;
+
+    .rightbar {
+        grid-area: rightbar;
+        padding: 2rem 0.5rem;
+        height: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-left: 2px solid variables.$gray-border-hi;
+        gap: 0.5rem;
+    }
+
+    .leftbar {
+        grid-area: leftbar;
+        padding: 2rem 0.5rem;
+        height: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-right: 2px solid variables.$gray-border-hi;
+        gap: 0.5rem;
+
+        .timedisp {
+            background: variables.$gray-deep;
+            border-radius: 4px;
+            border: 2px solid variables.$gray-border-hi;
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            gap: 0.1rem;
+            padding: 0.5rem;
+
+            .zululabel {
+                font-size: 1rem;
+                letter-spacing: 0.03em;
+                color: variables.$text-dimmed;
+            }
+
+            .zuludisp {
+                font-size: clamp(1.8rem, 3vw, 3rem);
+                letter-spacing: 0.2em;
+                color: variables.$gold-accent;
+                margin: 0;
+            }
+
+            .dateholder {
+                display: flex;
+                justify-content: space-between;
+
+                .datedisp {
+                    font-size: 1rem;
+                    letter-spacing: 0.03em;
+                }
+
+                .datedimmed {
+                    font-size: 1rem;
+                    letter-spacing: 0.03em;
+                    color: variables.$text-dimmed;
+                }
+            }
+
+            .localholder {
+                display: flex;
+                justify-content: space-between;
+
+                .localdisp {
+                    font-size: 1rem;
+                    letter-spacing: 0.03em;
+                }
+    
+                .localdimmed {
+                    font-size: 1rem;
+                    letter-spacing: 0.03em;
+                    color: variables.$text-dimmed;
+                }
+            }
+        }
+
+        .submitcontacts {
+            background: variables.$gray-deep;
+            padding: 0.5rem;
+            border: 2px solid variables.$gray-border-hi;
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            border-radius: 4px;
+            gap: 0.5rem;
+
+            .title {
+                font-size: 1rem;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .topdash {
+        grid-area: topdash;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bottomdash {
+        grid-area: bottomdash;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
     .contact-choice {
         background: variables.$gray-deepest;
         border: 1px solid variables.$gold-accent;
         color: variables.$gold-accent;
-        font-size: 1.25rem;
+        font-size: 1rem;
         text-transform: uppercase;
         transition: 0.2s ease;
-        padding: 1rem 4rem;
+        padding: 0.75rem 1rem;
         display: flex;
         flex-direction: row;
         align-items: center;
-        border-radius: 100px;
+        border-radius: 4px;
         gap: 1rem;
 
         .contact-icon {
