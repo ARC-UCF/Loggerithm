@@ -119,8 +119,8 @@ export default function OperatorModal({ onClose }: { defaultValue?: string; onCl
             localStorage.setItem("TXPower", formTX);
             setTXPower(formTX);
         } else {
-            notify("TX power was set to null. Did you see TX power to zero?", "error");
-            return;
+            localStorage.setItem("TXPower", "");
+            setTXPower("");
         }
 
         if (fMode) {
@@ -205,7 +205,6 @@ export default function OperatorModal({ onClose }: { defaultValue?: string; onCl
             <div className="field">
                 <label>TX Power (watts) *</label>
                 <input
-                    required
                     name="txpower"
                     placeholder="TX Power"
                     aria-required="true"

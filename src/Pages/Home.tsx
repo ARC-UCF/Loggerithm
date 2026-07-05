@@ -66,7 +66,13 @@ export default function Home({ setView }: { setView: (v: "home" | "pota" | "fiel
                 
             </div>
             <div className="topdash">
-
+                <div className="top-container">
+                    <div className="sessiondisplay">
+                        <div className="sessioncard">
+                            <h1>Hi</h1>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="bottomdash">
 

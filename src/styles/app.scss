@@ -52,6 +52,124 @@ nav {
 
     /* scss lets us nest them! Good for organization! */
 
+    .nav-top {
+        display: flex;
+        list-style: none;
+        gap: .5rem;
+
+        .ham-holder {
+            background: variables.$gray-deep;
+            border: 1px solid variables.$gray-border-hi;
+            border-radius: 4px;
+            align-items: center;
+            display: flex;
+            padding: 0.3rem;
+
+            .hamburger {
+                width: 25px;
+                height: 25px;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 3px;
+
+                background: none;
+                border: none;
+                cursor: pointer;
+
+                span {
+                    height: 3px;
+                    width: 25px;
+                    background: variables.$white-color;
+                    border-radius: 2px;
+                    transition: all 0.25s ease;
+                }
+            }
+
+            .hamburger.open span:nth-child(1) {
+                transform: translateY(6px) rotate(45deg);
+            }
+
+            .hamburger.open span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.open span:nth-child(3) {
+                transform: translateY(-6px) rotate(-45deg);
+            }
+        }
+
+        .time-disp {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.3rem 1rem;
+            background: variables.$gray-deep;
+            border: 1px solid variables.$gray-border-hi;
+            border-radius: 4px;
+            color: variables.$gold-pale;
+            align-items: center;
+
+            .circle {
+                width: 10px;
+                height: 10px;
+                background: variables.$green-pale;
+                border-radius: 100px;
+                position: relative;
+            }
+
+            .circle::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: inherit;
+                background: inherit;
+
+                animation: ripple 2s infinite;
+            }
+
+            @keyframes ripple {
+                0% {
+                    transform: scale(1);
+                    opacity: 0.8;
+                }
+
+                100% {
+                    transform: scale(2.5);
+                    opacity: 0;
+                }
+            }
+        }
+
+        .qsosec {
+            background: variables.$gray-deep;
+            border: 1px solid variables.$gray-border-hi;
+            border-radius: 4px;
+            padding: 0.3rem 1rem;
+            gap: 1rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            .holder {
+                display: flex;
+                flex-direction: row;
+                gap: 0.3rem;
+
+                .type {
+                    color: variables.$text-muted;
+                    font-weight: 500;
+                    font-size: 1rem;
+                }
+    
+                .value {
+                    color: variables.$text-primary;
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+
     .nav-links {
         display: flex;
         gap: 2rem;
@@ -70,6 +188,65 @@ nav {
             color: variables.$gold-accent;
         }
     }
+}
+
+.sidemenu {
+    position: absolute;
+    top: 6%;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    width: 100%;
+    max-width: 300px;
+    height: 100%;
+
+    padding: 1rem;
+    
+    background: variables.$gray-deepest;
+    border: 2px solid variables.$gray-border-hi;
+    z-index: 2000;
+
+    pointer-events: none;
+    transform: translateX(-400px);
+
+    transition: transform 0.2s ease;
+
+    .namepart {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .sidebarbutton {
+        width: 100%;
+        height: 30px;
+        padding: 0.2rem 0.5rem;
+        border: 0;
+        background: variables.$gray-deepest;
+        color: variables.$text-muted;
+        font-size: 1rem;
+        font-family: var(--font-sans);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .sidebarbutton:hover {
+        color: variables.$gray-deepest;
+        background: variables.$gold-accent;
+    }
+}
+
+.sidemenu.open {
+    pointer-events: auto;
+    transform: translateX(0);
 }
 
 footer {
@@ -230,9 +407,34 @@ footer {
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        .top-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .sessiondisplay {
+                width: 100%;
+                height: 100%;
+                padding: 2rem;
+                gap: 0.5rem;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, (minmax(30%, 1fr)));
+
+                .sessioncard {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+        }
     }
 
     .bottomdash {
+        border-top: 1px solid variables.$gray-border;
         grid-area: bottomdash;
         height: 100%;
         width: 100%;
