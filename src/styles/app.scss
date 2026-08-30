@@ -424,10 +424,53 @@ footer {
                 grid-template-columns: repeat(auto-fit, (minmax(30%, 1fr)));
 
                 .sessioncard {
+                    padding: 0.5rem;
                     width: 100%;
                     height: 100%;
                     display: flex;
                     flex-direction: column;
+                    background: variables.$gray-deep;
+                    border: 1px solid variables.$gray-border-hi;
+                    border-radius: 4px;
+
+                    .sessioninfo {
+                        display: flex;
+                        flex-direction: column;
+
+                        .sestitle {
+                            font-weight: 500;
+                            font-size: 2rem;
+                        }
+
+                        .stats {
+                            display: grid;
+                            grid-template-rows: repeat(auto-fit, (minmax(40px, 1fr)));
+                            height: auto;
+
+                            .stat {
+                                display: flex;
+                                flex-direction: row;
+                                border-top: 1px solid variables.$gray-border-hi;
+                                width: 100%;
+                                justify-content: space-between;
+                                padding: 0.3rem 1rem;
+
+                                .statname {
+                                    font-weight: 500;
+                                    font-size: 1rem;
+                                }
+
+                                .statval {
+                                    color: variables.$text-muted;
+                                    font-size: 1rem;
+                                }
+                            }
+                        }
+                    }
+
+                    .sessionhealth {
+                        
+                    }
                 }
             }
         }

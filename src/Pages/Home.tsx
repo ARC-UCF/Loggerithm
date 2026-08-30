@@ -29,6 +29,13 @@ export default function Home({ setView }: { setView: (v: "home" | "pota" | "fiel
         hour12: true,
     })
 
+    const localTime24hour = now.toLocaleTimeString("en-US", {
+        timeZoneName: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+    })
+
     {/* Current plan is to, at some point, overhaul this page (and a few others) to make them look even nicer and be more functional. */}
 
     return (
@@ -44,6 +51,10 @@ export default function Home({ setView }: { setView: (v: "home" | "pota" | "fiel
                     <div className="localholder">
                         <p className="localdimmed">Local</p>
                         <p className="localdisp">{localTime}</p>
+                    </div>
+                    <div className="localholder">
+                        <p className="localdimmed">Local (24 hour)</p>
+                        <p className="localdisp">{localTime24hour}</p>
                     </div>
                 </div>
                 <div className="submitcontacts">
@@ -69,7 +80,81 @@ export default function Home({ setView }: { setView: (v: "home" | "pota" | "fiel
                 <div className="top-container">
                     <div className="sessiondisplay">
                         <div className="sessioncard">
-                            <h1>Hi</h1>
+                            <div className="sessioninfo">
+                                <p className="sestitle">
+                                    Session Information
+                                </p>
+                                <div className="stats">
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Session Host
+                                        </p>
+                                        <p className="statval">
+                                            KG4YDW
+                                        </p>
+                                    </div>
+                                    <div className="stat">
+                                        <div className="statname">
+                                            Session Began
+                                        </div>
+                                        <div className="statval">
+                                            8:30 AM EDT
+                                        </div>
+                                    </div>
+                                    <div className="stat">
+                                        <div className="statname">
+                                            Session Runtime
+                                        </div>
+                                        <div className="statval">
+                                            2:30:00
+                                        </div>
+                                    </div>
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Session Type
+                                        </p>
+                                        <p className="statval">
+                                            Field Day
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="sessioncard">
+                            <div className="sessioninfo">
+                                <p className="sestitle">
+                                    Session Health
+                                </p>
+                                <div className="stats">
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Database Connection
+                                        </p>
+                                        <p className="statval">
+                                            Connected
+                                        </p>
+                                    </div>
+                                    <div className="stat">
+                                        <p className="statname">
+                                            User Session
+                                        </p>
+                                        <p className="statval">
+                                            Connected
+                                        </p>
+                                    </div>
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Backend Connection
+                                        </p>
+                                        <p className="statval">
+                                            Connected
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="sessioncard">
+                            <h1>Stats</h1>
                         </div>
                     </div>
                 </div>
