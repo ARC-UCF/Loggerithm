@@ -1,0 +1,27 @@
+name: Documentation Update
+description: Submit a documentation update
+title: "[DOC UPDATE]: "
+labels: ["documentation"]
+type: feature
+body:
+  - type: markdown
+    attributes:
+      value: "## Documentation Update"
+  - type: markdown
+    attributes:
+      value: |
+        Submit a documentation update request to improve the documentation on the software. This could be to improve accessibility, maintainability, or is some other update. Fill out the following fields in order to complete this documentation request.
+  - type: textarea
+    id: documentationdesc
+    attributes: 
+      label: Describe the documentation update
+      description: "Describe, in detail, how the documentation update will improve the current documentation"
+    validations:
+      required: true
+  - type: textarea
+    id: documentationinfo
+    attributes:
+      label: Provide the update to the documentation (leave blank if opening an issue)
+      description: "Write the upate to the documentation you would like to add. If opening an issue, leave this blank"
+    validations:
+      required: false

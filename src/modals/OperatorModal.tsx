@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useToast } from "../Components/ToastProvider";
 import { PostRequest } from "../utils/Requests";
 
-export default function OperatorModal({ defaultValue, onClose }: { defaultValue?: string; onClose: () => void}) {
+export default function OperatorModal({ onClose }: { defaultValue?: string; onClose: () => void}) {
 
     const { notify } = useToast();
 
@@ -119,8 +119,8 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
             localStorage.setItem("TXPower", formTX);
             setTXPower(formTX);
         } else {
-            notify("TX power was set to null. Did you see TX power to zero?", "error");
-            return;
+            localStorage.setItem("TXPower", "");
+            setTXPower("");
         }
 
         if (fMode) {
@@ -205,7 +205,6 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
             <div className="field">
                 <label>TX Power (watts) *</label>
                 <input
-                    required
                     name="txpower"
                     placeholder="TX Power"
                     aria-required="true"
@@ -237,6 +236,9 @@ export default function OperatorModal({ defaultValue, onClose }: { defaultValue?
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
+            </div>
+            <div className="field">
+                <button onClick={onClose}>Exit</button>
             </div>
             <div className="field">
                 <button type="submit">Submit</button>

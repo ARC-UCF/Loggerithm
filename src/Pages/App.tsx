@@ -6,7 +6,7 @@ import ProtectedRoute from "../Layouts/ProtectedLayout.tsx";
 import { AppProvider } from "../Components/AppProvider.tsx";
 import { ToastProvider } from "../Components/ToastProvider.tsx";
 import { ModalProvider } from "../modals/ModalProvider.tsx";
-import Logger from "./Dashboard.tsx";
+import Dashboard from "./Dashboard.tsx";
 import Contacts from "./Contacts.tsx";
 import HelpSurface from "./HelpSurface.tsx";
 import HelpLayout from "../Layouts/HelpLayout.tsx";
@@ -15,6 +15,7 @@ import HelpPageLayout from "../Layouts/HelpPageLayout.tsx";
 import NotFound from "../Components/NotFoundPages/NotFound.tsx";
 import SetupYourOperator from "./HelpPages/SetupYourOperator.tsx";
 import ContactPage from "./Contact.tsx";
+import ReleaseNotes from "./ReleaseNotes.tsx";
 
 export default function App() {
     return (
@@ -31,8 +32,9 @@ export default function App() {
                             <Route element={<ProtectedRoute />}> {/* Elements located under this are protected and require a user to have their callsign in local storage to access them. */}
                                 <Route element={<Layout />}>
                                     <Route path="/session" element={<SessionFeatures />} />
-                                    <Route path="/dashboard" element={<Logger />} />
+                                    <Route path="/dashboard" element={<Dashboard />} />
                                     <Route path="/contacts" element={<Contacts />} />
+                                    <Route path="/release-notes" element={<ReleaseNotes />}/>
                                 </Route>
                                 <Route path="/help" element={<HelpLayout />}>
                                     <Route index element={<HelpSurface />} />

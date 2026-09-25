@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import ScrollToTop from "../Components/ScrollToTop";
 import { UpdatePageTitle } from "../utils/UpdatePageInfo";
 import { FilterField } from "../Components/FilterComponent";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getRequest } from "../utils/Requests";
 import { useToast } from "../Components/ToastProvider";
 
@@ -48,7 +48,6 @@ export default function AuditLogs() {
     const [, setSearchParams] = useSearchParams();
     const { notify } = useToast();
     const [contacts, setContacts] = useState<Contact[]>([]);
-    const [loading, setLoading] = useState(false);
 
     const [filters, setFilters] = useState({
         callsign: {
@@ -88,12 +87,9 @@ export default function AuditLogs() {
     function displayLogs(res: response) {
         console.log(res);
         setContacts(res.contacts);
-
-        setLoading(false);
     }
 
     async function onApply() {
-        setLoading(true);
         const params = new URLSearchParams;
 
         for (const [key, filter] of Object.entries(filters)) {
