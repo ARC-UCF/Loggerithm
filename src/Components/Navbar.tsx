@@ -23,7 +23,7 @@ export default function Navbar() {
         <nav>
             <h2>Loggerithm</h2>
             <ul className="nav-links">
-                <li><Link to="/log">Log</Link></li>
+                <li><Link to="/dashboard">Dashboard</Link></li>
                 <li><Link to="/session">Session</Link></li>
                 <li><a onClick={() => openModal("operator")}>Operator</a></li>
                 <li><Link to="/contacts">Contacts</Link></li>
