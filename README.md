@@ -1,4 +1,4 @@
-# Loggerithm v1.0.0
+# Loggerithm v1.2.0
 
 ## Contents
 

@@ -154,7 +154,69 @@ export default function Home({ setView }: { setView: (v: "home" | "pota" | "fiel
                             </div>
                         </div>
                         <div className="sessioncard">
-                            <h1>Stats</h1>
+                            <div className="sessioninfo">
+                                <p className="sestitle">
+                                    Stats
+                                </p>
+                                <div className="stats">
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Most QSOs Overall
+                                        </p>
+                                        <p className="statval">
+                                            N5EEU, 110
+                                        </p>
+                                    </div>
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Most QSOs per Frequency
+                                        </p>
+                                        <p className="statval">
+                                            KQ4VQC, 7.200
+                                        </p>
+                                    </div>
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Most QSOs per Band
+                                        </p>
+                                        <p className="statval">
+                                            KG4YDW, 20m
+                                        </p>
+                                    </div>
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Most QSOs Per Hour
+                                        </p>
+                                        <p className="statval">
+                                            N5EEU, 35/hr
+                                        </p>
+                                    </div>
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Most Used Mode
+                                        </p>
+                                        <p className="statval">
+                                            Phone
+                                        </p>
+                                    </div>
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Most Used Band
+                                        </p>
+                                        <p className="statval">
+                                            20m
+                                        </p>
+                                    </div>
+                                    <div className="stat">
+                                        <p className="statname">
+                                            Most Used Frequency
+                                        </p>
+                                        <p className="statval">
+                                            7.200
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
