@@ -19,7 +19,7 @@ async def log_qso(request: Request, data: QSOCreate):
     * Callsign of the station operator
     * Station callsign (which will be the same as the callsign operator **if and only if** the station and operator callsign are the same, or the operator is acting under their callsign, and not under another station)
     * Timestamp of the log (which is automatically produced and sent)
-    * Frequency (in kHz, ie. 14.700)
+    * Frequency (in kHz, ie. 14700)
     * Band of operation (ie. 20 meters or 20m)
     * Mode of operation (ie. RTTY, SSB, CW)
     * Rst sent (nullable, required in some cases)
